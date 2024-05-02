@@ -1,1 +1,2 @@
 application properties --> changer "create" en "validate" lorsque la table est créée
+interfaces / enumerations ?
