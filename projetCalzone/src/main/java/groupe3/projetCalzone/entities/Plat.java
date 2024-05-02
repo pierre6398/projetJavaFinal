@@ -26,10 +26,15 @@ public class Plat{
 	@Column(name = "plat_photo")
 	private String photo;
 	
-	private List<Ingredient> ingredients;
+	//private List<Ingredient> ingredients;
 	
 	public Plat() {
 		
+	}
+	
+	public Plat(String nom, Double prix) {
+		this.nom = nom;
+		this.prix = prix;
 	}
 	
 	public Long getId() {
@@ -64,6 +69,7 @@ public class Plat{
 		this.photo = photo;
 	}
 
+	/*
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
@@ -71,6 +77,7 @@ public class Plat{
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
+	*/
 
 	@Override
 	public int hashCode() {

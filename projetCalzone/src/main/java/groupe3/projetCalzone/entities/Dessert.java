@@ -26,10 +26,15 @@ public class Dessert{
 	@Column(name = "dessert_photo")
 	private String photo;
 	
-	private List<Ingredient> ingredients;
+	//private List<Ingredient> ingredients;
 	
 	public Dessert() {
 		
+	}
+	
+	public Dessert(String nom, Double prix) {
+		this.nom = nom;
+		this.prix = prix;
 	}
 
 	public Long getId() {
@@ -72,6 +77,7 @@ public class Dessert{
 		this.photo = photo;
 	}
 
+	/*
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
@@ -79,6 +85,7 @@ public class Dessert{
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
+	*/
 
 	@Override
 	public int hashCode() {

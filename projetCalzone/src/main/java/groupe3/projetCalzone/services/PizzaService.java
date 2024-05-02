@@ -24,14 +24,15 @@ public class PizzaService {
 	private Logger logger = LoggerFactory.getLogger(PizzaService.class);
 	
 	// creation d'une pizza
-		public Pizza creationPizza(String nom) {
+		public Pizza creationPizza(String nom, Double prix) {
 			Pizza pizza = new Pizza();
 			pizza.setNom(nom);
-			return creationPiz(pizza);
+			pizza.setPrix(prix);
+			return creationPizza(pizza);
 		}
 		
 	// creation d'une pizza
-		public Pizza creationPiz(Pizza pizza) {
+		public Pizza creationPizza(Pizza pizza) {
 			if (pizza == null) {
 				throw new ReferenceNullException();
 			}
@@ -95,6 +96,10 @@ public class PizzaService {
 					pizza.setTva(nvTva);
 					pizza.setBase(nvBase);
 					pizza.setPhoto(nvPhoto);
+					pizzaRepository.save(pizza);
+				}
+				
+				public void modifierPizzaInfo(Pizza pizza) {
 					pizzaRepository.save(pizza);
 				}
 }

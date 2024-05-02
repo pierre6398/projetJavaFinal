@@ -21,9 +21,13 @@ public class Boisson{
 	
 	public Boisson() {
 	}
+	
+	public Boisson(String nom, Double prix) {
+		this.nom = nom;
+		this.prix = prix;
+	}
 
-	public Boisson(Long id, String nom, Double prix, Integer tva, Boolean alcool) {
-		this.id = id;
+	public Boisson(String nom, Double prix, Integer tva, Boolean alcool) {
 		this.nom = nom;
 		this.prix = prix;
 		this.tva = tva;

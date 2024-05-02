@@ -23,14 +23,15 @@ public class EntreeService {
 	private Logger logger = LoggerFactory.getLogger(EntreeService.class);
 	
 	// creation d'une entree
-			public Entree creationEntree(String nom) {
+			public Entree creationEntree(String nom, Double prix) {
 				Entree entree = new Entree();
 				entree.setNom(nom);
-				return creationEnt(entree);
+				entree.setPrix(prix);
+				return creationEntree(entree);
 			}
 			
 		// creation d'une entree
-			public Entree creationEnt(Entree entree) {
+			public Entree creationEntree(Entree entree) {
 				if (entree == null) {
 					throw new ReferenceNullException();
 				}
@@ -83,6 +84,10 @@ public class EntreeService {
 						entree.setPrix(nvPrix);
 						entree.setTva(nvTva);
 						entree.setPhoto(nvPhoto);
+						entreeRepository.save(entree);
+					}
+					
+					public void modifierEntreeInfo(Entree entree) {
 						entreeRepository.save(entree);
 					}
 }

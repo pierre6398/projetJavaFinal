@@ -2,16 +2,20 @@ package groupe3.projetCalzone.services;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import groupe3.projetCalzone.entities.Plat;
+import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.PlatException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
 import groupe3.projetCalzone.repositories.PlatRepository;
 
+@Service
 public class PlatService {
 	
 	@Autowired
@@ -91,5 +95,17 @@ public class PlatService {
 			throw new PlatException("nom obligatoire");
 		}
 		return platRepository.findByNomContainingIgnoreCase(nom);
+	}
+	
+	//plat par id
+	public Plat getById(Long id) {
+		if (id == null) {
+			throw new ReferenceNullException();
+		}
+		Optional<Plat> opt = platRepository.findById(id);
+		if (opt.isEmpty()) {
+			throw new NotFoundException("plat " + id + " non trouvé");
+		}
+		return opt.get();
 	}
 }
