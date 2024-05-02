@@ -1,3 +1,5 @@
-application properties --> changer "create" en "validate" lorsque la table est créée
-interfaces / enumerations ?
-@MappedSuperclass dans la super classe abstraite, @AttributeOverride dans les attributs des sous-classes (cf corrigé 'eShopBack' sur ajc@classroom)
+-application properties --> changer "create" en "validate" lorsque la table est créée
+-interfaces / enumerations ?
+-@MappedSuperclass dans la super classe abstraite, @AttributeOverride dans les attributs des sous-classes (cf corrigé 'eShopBack' sur ajc@classroom)
+-faire un findBy range de prix
+-mettre les noms des colonnes Entrée, Boisson, Pizza

@@ -19,8 +19,6 @@ public class Boisson{
 	private Integer tva;
 	private Boolean alcool;
 	
-	
-	
 	public Boisson() {
 	}
 

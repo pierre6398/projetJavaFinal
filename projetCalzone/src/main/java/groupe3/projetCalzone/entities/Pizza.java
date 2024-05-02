@@ -95,7 +95,4 @@ public class Pizza{
 		Pizza other = (Pizza) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-
-	
 }
