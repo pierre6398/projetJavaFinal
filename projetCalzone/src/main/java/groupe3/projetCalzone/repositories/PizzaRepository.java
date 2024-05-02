@@ -1,5 +1,17 @@
 package groupe3.projetCalzone.repositories;
 
-public class PizzaRepository {
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import groupe3.projetCalzone.entities.Pizza;
+import groupe3.projetCalzone.enums.BasePizza;
+
+public interface PizzaRepository extends JpaRepository<Pizza, Long>{
+	
+	List<Pizza> findByNomContaining(String nom);
+	
+	List<Pizza> findByBase(BasePizza base);
 
 }
