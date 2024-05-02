@@ -1,5 +1,5 @@
 package groupe3.projetCalzone.repositories;
 
-public class PizzaRepository {
+public interface PizzaRepository {
 
 }

@@ -1,5 +1,5 @@
 package groupe3.projetCalzone.entities;
 
-public class Entree{
+public class Ingredient {
 
 }
