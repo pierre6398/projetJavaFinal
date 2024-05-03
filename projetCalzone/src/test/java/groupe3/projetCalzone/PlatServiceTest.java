@@ -34,7 +34,7 @@ public class PlatServiceTest {
 	@Test
 	void insertTest() {
 		Plat p = new Plat("pâtes carbo", 10d);
-		platSrv.creationPlat(p);
+		platSrv.creation(p);
 		assertNotNull(p.getId());
 		Plat platEnBase = platSrv.getById(p.getId());
 
@@ -49,11 +49,11 @@ public class PlatServiceTest {
 		// @formatter:off
 		assertAll("test exception",
 						()->assertThrows(ReferenceNullException.class, () -> {
-								platSrv.creationPlat(null);
+								platSrv.creation(null);
 						}),
 						()->assertThrows(PlatException.class, () -> {
 								Plat p=new Plat();
-								platSrv.creationPlat(p);
+								platSrv.creation(p);
 						}),
 						()->assertThrows(NotFoundException.class, ()->{
 								platSrv.getById(99999999L);
@@ -65,7 +65,7 @@ public class PlatServiceTest {
 	@Test
 	void deleteSimpleTest() {
 		// faire une insertion
-		Plat p = platSrv.creationPlat("pâtes bolo", 10d);
+		Plat p = platSrv.creation("pâtes bolo", 10d);
 		// delete du code generer
 		Long id = p.getId();
 		platSrv.delete(p);
@@ -76,7 +76,7 @@ public class PlatServiceTest {
 	@Test
 	void updateSimpleTest() {
 		Plat p = new Plat("lasagnes", 10d);
-		platSrv.creationPlat(p);
+		platSrv.creation(p);
 
 		p.setPrix(8d);
 		platSrv.update(p);
