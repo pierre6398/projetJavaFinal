@@ -1,0 +1,78 @@
+package groupe3.projetCalzone.restcontrollers;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import groupe3.projetCalzone.dto.requests.PlatRequest;
+import groupe3.projetCalzone.dto.responses.PlatResponse;
+import groupe3.projetCalzone.entities.Plat;
+import groupe3.projetCalzone.services.PlatService;
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/plat")
+public class PlatRestController {
+	
+private Logger logger = LoggerFactory.getLogger(PlatRestController.class);
+	
+	@Autowired
+	private PlatService platSrv;
+	
+	// affiche tous les plats
+	@GetMapping("")
+	public List<PlatResponse> getAll() {
+		return platSrv.getAll().stream().map(p -> new PlatResponse(p)).collect(Collectors.toList());
+	}
+	
+	// affiche un plat
+	@GetMapping("/{id}")
+	public PlatResponse getById(@PathVariable Long id) {
+		return new PlatResponse(platSrv.getById(id));
+	}
+	
+	// crée un plat
+	@PostMapping("")
+	@ResponseStatus(code=HttpStatus.CREATED)
+	public PlatResponse create(@Valid @RequestBody PlatRequest platRequest, BindingResult br) {
+		if(br.hasErrors()) {
+			logger.info("erreur validation");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		logger.info("validation ok");
+		Plat  plat = new Plat();
+		BeanUtils.copyProperties(platRequest, plat);
+		plat=platSrv.creation(plat);
+		return new PlatResponse(plat);
+	}
+
+	// supprime un plat
+	@DeleteMapping("/{id}")
+	@ResponseStatus(code=HttpStatus.NO_CONTENT)
+	public void deleteById(@PathVariable Long id) {
+		platSrv.delete(platSrv.getById(id));
+	}
+	
+	// modifier un plat existant
+	@PutMapping("/{id}")
+	public PlatResponse update(@PathVariable Long id, @RequestBody Plat plat) {
+		plat.setId(id);
+		return new PlatResponse(platSrv.update(plat));
+	}
+}
