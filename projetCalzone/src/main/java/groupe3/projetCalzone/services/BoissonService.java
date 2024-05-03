@@ -22,14 +22,15 @@ public class BoissonService {
 	private Logger logger = LoggerFactory.getLogger(BoissonService.class);
 	
 	// creation d'une boisson
-		public Boisson creationBoisson(String nom) {
+		public Boisson creationBoisson(String nom, Double prix) {
 			Boisson boisson = new Boisson();
 			boisson.setNom(nom);
-			return creationBoi(boisson);
+			boisson.setPrix(prix);
+			return creationBoisson(boisson);
 		}
 		
 	// creation d'une boisson
-		public Boisson creationBoi(Boisson boisson) {
+		public Boisson creationBoisson(Boisson boisson) {
 			if (boisson == null) {
 				throw new ReferenceNullException();
 			}
@@ -91,6 +92,10 @@ public class BoissonService {
 					boisson.setNom(nvNom);
 					boisson.setPrix(nvPrix);
 					boisson.setTva(nvTva);
+					boissonRepository.save(boisson);
+				}
+				
+				public void modifierBoissonInfo(Boisson boisson) {
 					boissonRepository.save(boisson);
 				}
 }

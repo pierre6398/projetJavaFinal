@@ -23,10 +23,12 @@ public class PizzaService {
 	
 	private Logger logger = LoggerFactory.getLogger(PizzaService.class);
 	
+		
 	// creation d'une pizza
-		public Pizza creation(String nom) {
+		public Pizza creation(String nom, Double prix) {
 			Pizza pizza = new Pizza();
 			pizza.setNom(nom);
+			pizza.setPrix(prix);
 			return creation(pizza);
 		}
 		
@@ -95,6 +97,10 @@ public class PizzaService {
 					pizza.setTva(nvTva);
 					pizza.setBase(nvBase);
 					pizza.setPhoto(nvPhoto);
+					pizzaRepository.save(pizza);
+				}
+				
+				public void update(Pizza pizza) {
 					pizzaRepository.save(pizza);
 				}
 }

@@ -37,8 +37,13 @@ public class Pizza{
 	
 	public Pizza() {
 	}
-	public Pizza(Long id, String nom, Double prix, Integer tva, BasePizza base, TaillePizza taille, String photo) {
-		this.id = id;
+	
+	public Pizza(String nom, Double prix) {
+		this.nom = nom;
+		this.prix = prix;
+	}
+	
+	public Pizza(String nom, Double prix, Integer tva, BasePizza base, TaillePizza taille, String photo) {
 		this.nom = nom;
 		this.prix = prix;
 		this.tva = tva;

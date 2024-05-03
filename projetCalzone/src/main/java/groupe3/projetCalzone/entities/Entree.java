@@ -27,9 +27,13 @@ public class Entree{
 	
 	public Entree() {
 	}
+	
+	public Entree(String nom, Double prix) {
+		this.nom = nom;
+		this.prix = prix;
+	}
 
-	public Entree(Long id, String nom, Double prix, Integer tva, String photo) {
-		this.id = id;
+	public Entree(String nom, Double prix, Integer tva, String photo) {
 		this.nom = nom;
 		this.prix = prix;
 		this.tva = tva;

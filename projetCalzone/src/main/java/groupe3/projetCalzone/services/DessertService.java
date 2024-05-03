@@ -2,16 +2,20 @@ package groupe3.projetCalzone.services;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import groupe3.projetCalzone.entities.Dessert;
 import groupe3.projetCalzone.exceptions.DessertException;
+import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
 import groupe3.projetCalzone.repositories.DessertRepository;
 
+@Service
 public class DessertService {
 	
 	@Autowired
@@ -92,4 +96,17 @@ public class DessertService {
 		}
 		return dessertRepository.findByNomContainingIgnoreCase(nom);
 	}
+	
+	
+	//dessert par id
+		public Dessert getById(Long id) {
+			if (id == null) {
+				throw new ReferenceNullException();
+			}
+			Optional<Dessert> opt = dessertRepository.findById(id);
+			if (opt.isEmpty()) {
+				throw new NotFoundException("dessert " + id + " non trouvé");
+			}
+			return opt.get();
+		}
 }
