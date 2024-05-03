@@ -34,7 +34,7 @@ public class DessertServiceTest {
 	@Test
 	void insertTest() {
 		Dessert d = new Dessert("tiramisu", 5d);
-		dessertSrv.creationDessert(d);
+		dessertSrv.creation(d);
 		assertNotNull(d.getId());
 		Dessert dessertEnBase = dessertSrv.getById(d.getId());
 
@@ -49,11 +49,11 @@ public class DessertServiceTest {
 		// @formatter:off
 		assertAll("test exception",
 						()->assertThrows(ReferenceNullException.class, () -> {
-								dessertSrv.creationDessert(null);
+								dessertSrv.creation(null);
 						}),
 						()->assertThrows(DessertException.class, () -> {
 								Dessert d=new Dessert();
-								dessertSrv.creationDessert(d);
+								dessertSrv.creation(d);
 						}),
 						()->assertThrows(NotFoundException.class, ()->{
 								dessertSrv.getById(99999999L);
@@ -65,7 +65,7 @@ public class DessertServiceTest {
 	@Test
 	void deleteSimpleTest() {
 		// faire une insertion
-		Dessert d = dessertSrv.creationDessert("panna cotta", 5d);
+		Dessert d = dessertSrv.creation("panna cotta", 5d);
 		// delete du code generer
 		Long id = d.getId();
 		dessertSrv.delete(d);
@@ -76,7 +76,7 @@ public class DessertServiceTest {
 	@Test
 	void updateSimpleTest() {
 		Dessert d = new Dessert("dame blanche", 6d);
-		dessertSrv.creationDessert(d);
+		dessertSrv.creation(d);
 
 		d.setPrix(7d);
 		dessertSrv.update(d);

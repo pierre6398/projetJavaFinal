@@ -35,17 +35,17 @@ public class DessertService {
 	
 	
 	// création d'un dessert grâce au constructeur Dessert(nom, prix)
-	public Dessert creationDessert(String nom, Double prix) {
+	public Dessert creation(String nom, Double prix) {
 		logger.trace("creation dessert avec String, Double");
 		Dessert dessert = new Dessert();
 		dessert.setNom(nom);
 		dessert.setPrix(prix);
-		return creationDessert(dessert);
+		return creation(dessert);
 	}
 	
 	
 	// création d'un dessert grâce à un dessert
-	public Dessert creationDessert(Dessert dessert) {
+	public Dessert creation(Dessert dessert) {
 		logger.trace("creation dessert avec Dessert");
 		if (dessertNotNull(dessert) && dessert.getNom() == null || dessert.getNom().isBlank()) {
 			logger.debug("nom vide");
@@ -99,14 +99,19 @@ public class DessertService {
 	
 	
 	//dessert par id
-		public Dessert getById(Long id) {
-			if (id == null) {
-				throw new ReferenceNullException();
-			}
-			Optional<Dessert> opt = dessertRepository.findById(id);
-			if (opt.isEmpty()) {
-				throw new NotFoundException("dessert " + id + " non trouvé");
-			}
-			return opt.get();
+	public Dessert getById(Long id) {
+		if (id == null) {
+			throw new ReferenceNullException();
 		}
+		Optional<Dessert> opt = dessertRepository.findById(id);
+		if (opt.isEmpty()) {
+			throw new NotFoundException("dessert " + id + " non trouvé");
+		}
+		return opt.get();
+	}
+	
+	//tous les plats
+	public List<Dessert> getAll() {
+		return dessertRepository.findAll();
+	}
 }

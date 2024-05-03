@@ -1,7 +1,6 @@
 package groupe3.projetCalzone.entities;
 
 import java.util.Objects;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -35,17 +35,17 @@ public class PlatService {
 	
 	
 	// création d'un plat grâce au constructeur Plat(nom, prix)
-	public Plat creationPlat(String nom, Double prix) {
+	public Plat creation(String nom, Double prix) {
 		logger.trace("creation plat avec String, Double");
 		Plat plat = new Plat();
 		plat.setNom(nom);
 		plat.setPrix(prix);
-		return creationPlat(plat);
+		return creation(plat);
 	}
 	
 	
 	// création d'un plat grâce à un plat
-	public Plat creationPlat(Plat plat) {
+	public Plat creation(Plat plat) {
 		logger.trace("creation plat avec Plat");
 		if (platNotNull(plat) && plat.getNom() == null || plat.getNom().isBlank()) {
 			logger.debug("nom vide");
@@ -107,5 +107,10 @@ public class PlatService {
 			throw new NotFoundException("plat " + id + " non trouvé");
 		}
 		return opt.get();
+	}
+	
+	//tous les plats
+	public List<Plat> getAll() {
+		return platRepository.findAll();
 	}
 }
