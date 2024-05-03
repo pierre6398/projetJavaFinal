@@ -87,7 +87,7 @@ public class EntreeService {
 						entreeRepository.save(entree);
 					}
 					
-					public void update(Entree entree) {
-						entreeRepository.save(entree);
+					public Entree update(Entree entree) {
+						return entreeRepository.save(entree);
 					}
 }
