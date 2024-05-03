@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import groupe3.projetCalzone.enums.BasePizza;
 import groupe3.projetCalzone.enums.TaillePizza;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,18 +14,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "pizzas")
+@Table(name = "pizza")
 public class Pizza{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "pizza_id")
 	private Long id;
+	@Column(name = "pizza_nom")
 	private String nom;
+	@Column(name = "pizza_prix")
 	private Double prix;
+	@Column(name = "pizza_tva")
 	private Integer tva;
+	@Column(name = "pizza_base")
 	@Enumerated(EnumType.STRING)
 	private BasePizza base;
+	@Column(name = "pizza_taille")
 	@Enumerated(EnumType.STRING)
 	private TaillePizza taille;
+	@Column(name = "pizza_photo")
 	private String photo;
 	
 	public Pizza() {

@@ -2,6 +2,7 @@ package groupe3.projetCalzone.entities;
 
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,14 +10,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "boissons")
+@Table(name = "boisson")
 public class Boisson{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "boisson_id")
 	private Long id;
+	@Column(name = "boisson_nom")
 	private String nom;
+	@Column(name = "boisson_prix")
 	private Double prix;
+	@Column(name = "boisson_tva")
 	private Integer tva;
+	@Column(name = "boisson_alcool")
 	private Boolean alcool;
 	
 	public Boisson() {
