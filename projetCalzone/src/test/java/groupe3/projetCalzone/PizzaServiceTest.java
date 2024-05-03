@@ -11,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
+import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.entities.Pizza;
+import groupe3.projetCalzone.entities.TypeIngredient;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.PizzaException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
+import groupe3.projetCalzone.services.IngredientService;
 import groupe3.projetCalzone.services.PizzaService;
 import jakarta.transaction.Transactional;
 
@@ -25,6 +28,9 @@ public class PizzaServiceTest {
 	
 	@Autowired
 	PizzaService pizzaSrv;
+	
+	@Autowired 
+	IngredientService ingredientSrv;
 
 	@Test
 	void injectionTest() {
@@ -81,4 +87,23 @@ public class PizzaServiceTest {
 		p.setPrix(8d);
 		pizzaSrv.update(p);
 	}
+	
+	@Test
+	void ajouterIngredientTest() {
+		Ingredient tomate = new Ingredient("tomate", TypeIngredient.LEGUME);
+		Pizza p = new Pizza("calzone",150.0);
+		pizzaSrv.creation(p);
+		ingredientSrv.creation(tomate);
+		pizzaSrv.ajouterIngredient(tomate, p);
+	}
+	
+	@Test
+	void deleteIngredientTest() {
+		Ingredient tomate = new Ingredient("tomate", TypeIngredient.LEGUME);
+		Pizza p = new Pizza("calzone",150.0);
+		pizzaSrv.creation(p);
+		ingredientSrv.creation(tomate);
+		pizzaSrv.deleteIngredient(tomate, p);
+	}
+	
 }

@@ -1,5 +1,6 @@
 package groupe3.projetCalzone.entities;
 
+import java.util.Set;
 import java.util.Objects;
 
 import groupe3.projetCalzone.enums.BasePizza;
@@ -11,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -34,6 +36,9 @@ public class Pizza{
 	private TaillePizza taille;
 	@Column(name = "pizza_photo")
 	private String photo;
+	@OneToMany (mappedBy= "id.pizza")
+	private Set<ComposantPizza> composPizza;
+	
 	
 	public Pizza() {
 	}
@@ -43,13 +48,14 @@ public class Pizza{
 		this.prix = prix;
 	}
 	
-	public Pizza(String nom, Double prix, Integer tva, BasePizza base, TaillePizza taille, String photo) {
+	public Pizza(String nom, Double prix, Integer tva, BasePizza base, TaillePizza taille, String photo,Set<ComposantPizza> composPizza) {
 		this.nom = nom;
 		this.prix = prix;
 		this.tva = tva;
 		this.base = base;
 		this.taille = taille;
 		this.photo = photo;
+		this.composPizza = composPizza;
 	}
 	public Long getId() {
 		return id;
@@ -93,6 +99,16 @@ public class Pizza{
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	
+	
+	public Set<ComposantPizza> getComposPizza() {
+		return composPizza;
+	}
+
+	public void setComposPizza(Set<ComposantPizza> composPizza) {
+		this.composPizza = composPizza;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

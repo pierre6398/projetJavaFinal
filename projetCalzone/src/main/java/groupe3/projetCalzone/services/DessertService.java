@@ -9,10 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import groupe3.projetCalzone.entities.ComposantDessert;
+import groupe3.projetCalzone.entities.ComposantDessertId;
 import groupe3.projetCalzone.entities.Dessert;
+import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.exceptions.DessertException;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
+import groupe3.projetCalzone.repositories.ComposantDessertRepository;
 import groupe3.projetCalzone.repositories.DessertRepository;
 
 @Service
@@ -20,6 +24,12 @@ public class DessertService {
 	
 	@Autowired
 	private DessertRepository dessertRepository;
+	
+	@Autowired
+	private ComposantDessertRepository compoDessertRepository;
+	
+	@Autowired
+	private IngredientService ingredientSrv;
 	
 	private Logger logger = LoggerFactory.getLogger(DessertService.class);
 	
@@ -114,4 +124,27 @@ public class DessertService {
 	public List<Dessert> getAll() {
 		return dessertRepository.findAll();
 	}
+	
+	
+	//check existance de dessert et ingredient 
+			public void checkCompo(Dessert dessert, Ingredient ingredient){
+				if (dessert == null || ingredient == null) { 
+					throw new ReferenceNullException();
+			} ingredientSrv.getById(ingredient.getId());
+				this.getById(dessert.getId());
+			}
+		
+		//ajouter un ingrédient dans une dessert
+			public void ajouterIngredient(Ingredient ingredient, Dessert dessert) {
+		        checkCompo(dessert, ingredient);
+		        ComposantDessert composantDessert = new ComposantDessert();
+		        composantDessert.setId(new ComposantDessertId(dessert, ingredient));
+		        compoDessertRepository.save(composantDessert);
+			}
+
+		//supprimer un ingrédient dans une dessert			
+			public void deleteIngredient(Ingredient ingredient, Dessert dessert) {
+		        checkCompo(dessert, ingredient);
+		        compoDessertRepository.deleteById(new ComposantDessertId(dessert, ingredient));	
+			}
 }

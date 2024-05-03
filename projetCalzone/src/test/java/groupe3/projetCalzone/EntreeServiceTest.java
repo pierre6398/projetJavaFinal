@@ -16,6 +16,7 @@ import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.EntreeException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
 import groupe3.projetCalzone.services.EntreeService;
+import groupe3.projetCalzone.services.IngredientService;
 import jakarta.transaction.Transactional;
 
 @SpringBootTest
@@ -25,6 +26,8 @@ public class EntreeServiceTest {
 	
 	@Autowired
 	EntreeService entreeSrv;
+	@Autowired 
+	IngredientService ingredientSrv;
 
 	@Test
 	void injectionTest() {
@@ -81,4 +84,22 @@ public class EntreeServiceTest {
 		e.setPrix(7d);
 		entreeSrv.update(e);
 	}
+	
+//	@Test
+//	void ajouterIngredientTest() {
+//		Ingredient tomate = new Ingredient("tomate", TypeIngredient.LEGUME);
+//		Entree e = new Entree("tomate mozza", 32.0);
+//		entreeSrv.creation(e);
+//		ingredientSrv.creation(tomate);
+//		entreeSrv.ajouterIngredient(tomate, e);
+//	}
+//	
+//	@Test
+//	void deleteIngredientTest() {
+//		Ingredient tomate = new Ingredient("tomate", TypeIngredient.LEGUME);
+//		Entree e = new Entree("tomate mozza", 32.0);
+//		entreeSrv.creation(e);
+//		ingredientSrv.creation(tomate);
+//		entreeSrv.deleteIngredient(tomate, e);
+//	}
 }

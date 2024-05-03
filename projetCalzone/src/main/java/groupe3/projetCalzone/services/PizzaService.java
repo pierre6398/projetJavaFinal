@@ -8,11 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import groupe3.projetCalzone.entities.ComposantPizza;
+import groupe3.projetCalzone.entities.ComposantPizzaId;
+import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.entities.Pizza;
 import groupe3.projetCalzone.enums.BasePizza;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.PizzaException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
+import groupe3.projetCalzone.repositories.ComposantPizzaRepository;
 import groupe3.projetCalzone.repositories.PizzaRepository;
 
 @Service
@@ -20,6 +24,12 @@ public class PizzaService {
 	
 	@Autowired
 	private PizzaRepository pizzaRepository;
+	
+	@Autowired
+	private ComposantPizzaRepository compoPizzaRepository;
+	
+	@Autowired
+	private IngredientService ingredientSrv;
 	
 	private Logger logger = LoggerFactory.getLogger(PizzaService.class);
 	
@@ -102,7 +112,27 @@ public class PizzaService {
 				
 				public Pizza update(Pizza pizza) {
 					return pizzaRepository.save(pizza);
-				}
+				}	
 				
-				
+	//check existance de pizza et ingredient 
+		public void checkCompo(Pizza pizza, Ingredient ingredient){
+			if (pizza == null || ingredient == null) { 
+				throw new ReferenceNullException();
+		} ingredientSrv.getById(ingredient.getId());
+			this.getById(pizza.getId());
+		}
+	
+	//ajouter un ingrédient dans une pizza
+		public void ajouterIngredient(Ingredient ingredient, Pizza pizza) {
+	        checkCompo(pizza, ingredient);
+	        ComposantPizza composantPizza = new ComposantPizza();
+	        composantPizza.setId(new ComposantPizzaId(pizza, ingredient));
+	        compoPizzaRepository.save(composantPizza);
+		}
+
+	//supprimer un ingrédient dans une pizza			
+		public void deleteIngredient(Ingredient ingredient, Pizza pizza) {
+	        checkCompo(pizza, ingredient);
+	        compoPizzaRepository.deleteById(new ComposantPizzaId(pizza, ingredient));	
+		}
 }

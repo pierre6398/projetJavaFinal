@@ -12,10 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
 import groupe3.projetCalzone.entities.Dessert;
+import groupe3.projetCalzone.entities.Ingredient;
+import groupe3.projetCalzone.entities.TypeIngredient;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.DessertException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
 import groupe3.projetCalzone.services.DessertService;
+import groupe3.projetCalzone.services.IngredientService;
 import jakarta.transaction.Transactional;
 
 @SpringBootTest
@@ -26,6 +29,10 @@ public class DessertServiceTest {
 	@Autowired
 	DessertService dessertSrv;
 
+	
+	@Autowired 
+	IngredientService ingredientSrv;
+	
 	@Test
 	void injectionTest() {
 		assertNotNull(dessertSrv);
@@ -80,5 +87,23 @@ public class DessertServiceTest {
 
 		d.setPrix(7d);
 		dessertSrv.update(d);
+	}
+	
+	@Test
+	void ajouterIngredientTest() {
+		Ingredient mascarpone = new Ingredient("mascarpone", TypeIngredient.FROMAGE);
+		Dessert d = new Dessert("tiramisu",1.0);
+		dessertSrv.creation(d);
+		ingredientSrv.creation(mascarpone);
+		dessertSrv.ajouterIngredient(mascarpone, d);
+	}
+	
+	@Test
+	void deleteIngredientTest() {
+		Ingredient mascarpone = new Ingredient("mascarpone", TypeIngredient.FROMAGE);
+		Dessert d = new Dessert("tiramisu",1.0);
+		dessertSrv.creation(d);
+		ingredientSrv.creation(mascarpone);
+		dessertSrv.deleteIngredient(mascarpone, d);
 	}
 }

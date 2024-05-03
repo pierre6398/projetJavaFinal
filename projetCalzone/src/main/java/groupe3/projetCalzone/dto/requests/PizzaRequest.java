@@ -13,8 +13,6 @@ public class PizzaRequest {
 	private TaillePizza taille;
 	private String photo;
 	
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -57,8 +55,6 @@ public class PizzaRequest {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	
-	
 	
 
 }

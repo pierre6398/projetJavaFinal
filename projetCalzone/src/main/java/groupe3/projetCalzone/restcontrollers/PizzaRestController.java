@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import groupe3.projetCalzone.dto.requests.PizzaRequest;
 import groupe3.projetCalzone.dto.responses.PizzaResponse;
 import groupe3.projetCalzone.entities.Pizza;

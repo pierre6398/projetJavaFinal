@@ -9,10 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import groupe3.projetCalzone.entities.ComposantPlat;
+import groupe3.projetCalzone.entities.ComposantPlatId;
+import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.entities.Plat;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.PlatException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
+import groupe3.projetCalzone.repositories.ComposantPlatRepository;
 import groupe3.projetCalzone.repositories.PlatRepository;
 
 @Service
@@ -20,6 +24,12 @@ public class PlatService {
 	
 	@Autowired
 	private PlatRepository platRepository;
+	
+	@Autowired
+	private ComposantPlatRepository compoPlatRepository;
+	
+	@Autowired
+	private IngredientService ingredientSrv;
 	
 	private Logger logger = LoggerFactory.getLogger(PlatService.class);
 	
@@ -113,4 +123,26 @@ public class PlatService {
 	public List<Plat> getAll() {
 		return platRepository.findAll();
 	}
+	
+	//check existance de plat et ingredient 
+			public void checkCompo(Plat plat, Ingredient ingredient){
+				if (plat == null || ingredient == null) { 
+					throw new ReferenceNullException();
+			} ingredientSrv.getById(ingredient.getId());
+				this.getById(plat.getId());
+			}
+		
+		//ajouter un ingrédient dans une plat
+			public void ajouterIngredient(Ingredient ingredient, Plat plat) {
+		        checkCompo(plat, ingredient);
+		        ComposantPlat composantPlat = new ComposantPlat();
+		        composantPlat.setId(new ComposantPlatId(plat, ingredient));
+		        compoPlatRepository.save(composantPlat);
+			}
+
+		//supprimer un ingrédient dans une plat			
+			public void deleteIngredient(Ingredient ingredient, Plat plat) {
+		        checkCompo(plat, ingredient);
+		        compoPlatRepository.deleteById(new ComposantPlatId(plat, ingredient));	
+			}
 }
