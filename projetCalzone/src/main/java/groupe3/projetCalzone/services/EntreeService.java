@@ -23,15 +23,15 @@ public class EntreeService {
 	private Logger logger = LoggerFactory.getLogger(EntreeService.class);
 	
 	// creation d'une entree
-			public Entree creationEntree(String nom, Double prix) {
+			public Entree creation(String nom, Double prix) {
 				Entree entree = new Entree();
 				entree.setNom(nom);
 				entree.setPrix(prix);
-				return creationEntree(entree);
+				return creation(entree);
 			}
 			
 		// creation d'une entree
-			public Entree creationEntree(Entree entree) {
+			public Entree creation(Entree entree) {
 				if (entree == null) {
 					throw new ReferenceNullException();
 				}
@@ -70,7 +70,7 @@ public class EntreeService {
 					}
 
 		//suppr entree
-					public void deleteEntree(Long id) {
+					public void delete(Long id) {
 						if (id == null) {
 							throw new ReferenceNullException();
 						}
@@ -79,7 +79,7 @@ public class EntreeService {
 					}
 					
 		//modif entree
-					public void modifierEntreeInfo(Entree entree, String nvNom, Double nvPrix, Integer nvTva, String nvPhoto) {
+					public void update(Entree entree, String nvNom, Double nvPrix, Integer nvTva, String nvPhoto) {
 						entree.setNom(nvNom);
 						entree.setPrix(nvPrix);
 						entree.setTva(nvTva);
@@ -87,7 +87,7 @@ public class EntreeService {
 						entreeRepository.save(entree);
 					}
 					
-					public void modifierEntreeInfo(Entree entree) {
+					public void update(Entree entree) {
 						entreeRepository.save(entree);
 					}
 }

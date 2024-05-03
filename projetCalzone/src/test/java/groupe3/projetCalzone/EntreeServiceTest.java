@@ -34,7 +34,7 @@ public class EntreeServiceTest {
 	@Test
 	void insertTest() {
 		Entree e = new Entree("salade césar", 7d);
-		entreeSrv.creationEntree(e);
+		entreeSrv.creation(e);
 		assertNotNull(e.getId());
 		Entree entreeEnBase = entreeSrv.getById(e.getId());
 
@@ -49,11 +49,11 @@ public class EntreeServiceTest {
 		// @formatter:off
 		assertAll("test exception",
 						()->assertThrows(ReferenceNullException.class, () -> {
-								entreeSrv.creationEntree(null);
+								entreeSrv.creation(null);
 						}),
 						()->assertThrows(EntreeException.class, () -> {
 								Entree e=new Entree();
-								entreeSrv.creationEntree(e);
+								entreeSrv.creation(e);
 						}),
 						()->assertThrows(NotFoundException.class, ()->{
 								entreeSrv.getById(99999999L);
@@ -65,10 +65,10 @@ public class EntreeServiceTest {
 	@Test
 	void deleteSimpleTest() {
 		// faire une insertion
-		Entree e = entreeSrv.creationEntree("arancini", 5d);
+		Entree e = entreeSrv.creation("arancini", 5d);
 		// delete du code generer
 		Long id = e.getId();
-		entreeSrv.deleteEntree(id);
+		entreeSrv.delete(id);
 		// verifier en demandant le code =>NotFoundException
 		assertThrows(NotFoundException.class, () -> entreeSrv.getById(id));
 	}
@@ -76,9 +76,9 @@ public class EntreeServiceTest {
 	@Test
 	void updateSimpleTest() {
 		Entree e = new Entree("tomate mozza", 6d);
-		entreeSrv.creationEntree(e);
+		entreeSrv.creation(e);
 
 		e.setPrix(7d);
-		entreeSrv.modifierEntreeInfo(e);
+		entreeSrv.update(e);
 	}
 }

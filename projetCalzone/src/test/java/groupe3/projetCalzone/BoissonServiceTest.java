@@ -34,7 +34,7 @@ public class BoissonServiceTest {
 	@Test
 	void insertTest() {
 		Boisson b = new Boisson("coca", 2d);
-		boissonSrv.creationBoisson(b);
+		boissonSrv.creation(b);
 		assertNotNull(b.getId());
 		Boisson boissonEnBase = boissonSrv.getById(b.getId());
 
@@ -49,11 +49,11 @@ public class BoissonServiceTest {
 		// @formatter:off
 		assertAll("test exception",
 						()->assertThrows(ReferenceNullException.class, () -> {
-								boissonSrv.creationBoisson(null);
+								boissonSrv.creation(null);
 						}),
 						()->assertThrows(BoissonException.class, () -> {
 								Boisson b=new Boisson();
-								boissonSrv.creationBoisson(b);
+								boissonSrv.creation(b);
 						}),
 						()->assertThrows(NotFoundException.class, ()->{
 								boissonSrv.getById(99999999L);
@@ -65,10 +65,10 @@ public class BoissonServiceTest {
 	@Test
 	void deleteSimpleTest() {
 		// faire une insertion
-		Boisson b = boissonSrv.creationBoisson("cocktail maison", 4d);
+		Boisson b = boissonSrv.creation("cocktail maison", 4d);
 		// delete du code generer
 		Long id = b.getId();
-		boissonSrv.deleteBoisson(id);
+		boissonSrv.delete(id);
 		// verifier en demandant le code =>NotFoundException
 		assertThrows(NotFoundException.class, () -> boissonSrv.getById(id));
 	}
@@ -76,9 +76,9 @@ public class BoissonServiceTest {
 	@Test
 	void updateSimpleTest() {
 		Boisson b = new Boisson("ice tea", 2d);
-		boissonSrv.creationBoisson(b);
+		boissonSrv.creation(b);
 
 		b.setPrix(3d);
-		boissonSrv.modifierBoissonInfo(b);
+		boissonSrv.update(b);
 	}
 }

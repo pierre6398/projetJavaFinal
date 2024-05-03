@@ -22,15 +22,15 @@ public class BoissonService {
 	private Logger logger = LoggerFactory.getLogger(BoissonService.class);
 	
 	// creation d'une boisson
-		public Boisson creationBoisson(String nom, Double prix) {
+		public Boisson creation(String nom, Double prix) {
 			Boisson boisson = new Boisson();
 			boisson.setNom(nom);
 			boisson.setPrix(prix);
-			return creationBoisson(boisson);
+			return creation(boisson);
 		}
 		
 	// creation d'une boisson
-		public Boisson creationBoisson(Boisson boisson) {
+		public Boisson creation(Boisson boisson) {
 			if (boisson == null) {
 				throw new ReferenceNullException();
 			}
@@ -79,7 +79,7 @@ public class BoissonService {
 					return list;
 				}	
 	//suppr boisson
-				public void deleteBoisson(Long id) {
+				public void delete(Long id) {
 					if (id == null) {
 						throw new ReferenceNullException();
 					}
@@ -88,14 +88,14 @@ public class BoissonService {
 				}
 				
 	//modif boisson
-				public void modifierBoissonInfo(Boisson boisson, String nvNom, Double nvPrix, Integer nvTva) {
+				public void update(Boisson boisson, String nvNom, Double nvPrix, Integer nvTva) {
 					boisson.setNom(nvNom);
 					boisson.setPrix(nvPrix);
 					boisson.setTva(nvTva);
 					boissonRepository.save(boisson);
 				}
 				
-				public void modifierBoissonInfo(Boisson boisson) {
+				public void update(Boisson boisson) {
 					boissonRepository.save(boisson);
 				}
 }
