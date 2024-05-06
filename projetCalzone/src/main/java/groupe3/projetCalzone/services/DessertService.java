@@ -134,6 +134,7 @@ public class DessertService {
 		ComposantDessert composantDessert = new ComposantDessert();
 		composantDessert.setId(new ComposantDessertId(dessert, ingredient));
 		compoDessertRepository.save(composantDessert);
+		dessert.addComposantDessert(composantDessert);
 	}
 
 	// supprimer un ingrédient dans un dessert

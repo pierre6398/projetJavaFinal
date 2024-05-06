@@ -1,6 +1,7 @@
 package groupe3.projetCalzone.entities;
 
 import java.util.Set;
+import java.util.HashSet;
 import java.util.Objects;
 
 import groupe3.projetCalzone.enums.BasePizza;
@@ -46,6 +47,7 @@ public class Pizza{
 	public Pizza(String nom, Double prix) {
 		this.nom = nom;
 		this.prix = prix;
+		composantsPizza = new HashSet<ComposantPizza>();
 	}
 	
 	public Pizza(String nom, Double prix, Integer tva, BasePizza base, TaillePizza taille, String photo,Set<ComposantPizza> composantsPizza) {
@@ -107,6 +109,10 @@ public class Pizza{
 
 	public void setComposPizza(Set<ComposantPizza> composantsPizza) {
 		this.composantsPizza = composantsPizza;
+	}
+	
+	public void addComposantPizza(ComposantPizza composantPizza) {
+		composantsPizza.add(composantPizza);
 	}
 
 	@Override

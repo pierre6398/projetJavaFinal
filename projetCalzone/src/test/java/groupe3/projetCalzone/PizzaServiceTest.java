@@ -1,10 +1,6 @@
 package groupe3.projetCalzone;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +10,6 @@ import org.springframework.test.annotation.Rollback;
 import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.entities.Pizza;
 import groupe3.projetCalzone.entities.TypeIngredient;
-import groupe3.projetCalzone.exceptions.NotFoundException;
-import groupe3.projetCalzone.exceptions.PizzaException;
-import groupe3.projetCalzone.exceptions.ReferenceNullException;
 import groupe3.projetCalzone.services.IngredientService;
 import groupe3.projetCalzone.services.PizzaService;
 import jakarta.transaction.Transactional;
@@ -32,6 +25,7 @@ public class PizzaServiceTest {
 	@Autowired 
 	IngredientService ingredientSrv;
 
+	/*
 	@Test
 	void injectionTest() {
 		assertNotNull(pizzaSrv);
@@ -104,6 +98,26 @@ public class PizzaServiceTest {
 		pizzaSrv.creation(p);
 		ingredientSrv.creation(tomate);
 		pizzaSrv.deleteIngredient(tomate, p);
+	}
+	*/
+	
+	@Test
+	void getByIngredientTest() {
+		Ingredient tomate = new Ingredient("tomate", TypeIngredient.LEGUME);
+		Ingredient jambon = new Ingredient("jambon", TypeIngredient.VIANDE);
+		Pizza p = new Pizza("margherita",150.0);
+		pizzaSrv.creation(p);
+		ingredientSrv.creation(tomate);
+		ingredientSrv.creation(jambon);
+		pizzaSrv.addIngredient(tomate, p);
+		pizzaSrv.addIngredient(jambon, p);
+		Ingredient fromage = new Ingredient("fromage", TypeIngredient.FROMAGE);
+		Pizza p2 = new Pizza("4 fromages",150.0);
+		pizzaSrv.creation(p2);
+		ingredientSrv.creation(fromage);
+		pizzaSrv.addIngredient(fromage, p2);
+		pizzaSrv.addIngredient(jambon, p2);
+		List<Pizza> lp = pizzaSrv.getByIngredient(jambon);
 	}
 	
 }

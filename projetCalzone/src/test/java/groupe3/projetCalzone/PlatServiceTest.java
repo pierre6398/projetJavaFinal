@@ -104,7 +104,7 @@ public class PlatServiceTest {
 	@Test
 	void getByIngredientTest() {
 		Ingredient tomate = new Ingredient("tomate", TypeIngredient.LEGUME);
-		Ingredient pates = new Ingredient("pâtes", TypeIngredient.LEGUME);
+		Ingredient pates = new Ingredient("pâtes", TypeIngredient.FECULENT);
 		Plat p = new Plat("pates aux tomates",150.0);
 		platSrv.creation(p);
 		ingredientSrv.creation(tomate);

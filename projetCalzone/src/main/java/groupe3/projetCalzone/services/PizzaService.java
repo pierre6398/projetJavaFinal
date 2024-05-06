@@ -133,6 +133,7 @@ public class PizzaService {
 		ComposantPizza composantPizza = new ComposantPizza();
 		composantPizza.setId(new ComposantPizzaId(pizza, ingredient));
 		compoPizzaRepository.save(composantPizza);
+		pizza.addComposantPizza(composantPizza);
 	}
 
 	// supprimer un ingrédient dans une pizza

@@ -1,7 +1,9 @@
 package groupe3.projetCalzone.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,6 +119,7 @@ public class EntreeService {
 		ComposantEntree composantEntree = new ComposantEntree();
 		composantEntree.setId(new ComposantEntreeId(entree, ingredient));
 		compoEntreeRepository.save(composantEntree);
+		entree.addComposantEntree(composantEntree);
 	}
 
 	// supprimer un ingrédient dans une pizza
@@ -126,12 +129,37 @@ public class EntreeService {
 	}
 	
 	// chercher entrée avec cet ingrédient
-		public Entree getByIdWithComposantsEntree(Long id) {
-			if (id == null) {
-				throw new ReferenceNullException();
-			}
-			return entreeRepository.findByIdFetchComposantsEntree(id).orElseThrow(() -> {
-				throw new NotFoundException("Entrée " + id + " inexistante");
-			});
+	public Entree getByIdWithComposantsEntree(Long id) {
+		if (id == null) {
+			throw new ReferenceNullException();
 		}
+		return entreeRepository.findByIdFetchComposantsEntree(id).orElseThrow(() -> {
+			throw new NotFoundException("Entrée " + id + " inexistante");
+			});
+	}
+	
+	public boolean checkIngredientInComposantsEntree(Ingredient ingredient, Set<ComposantEntree> composantsEntree){
+		for (ComposantEntree composantEntree: composantsEntree) {
+			if (composantEntree.getId().getIngredient().equals(ingredient)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<Entree> getByIngredient(Ingredient ingredient){
+		Long idIngredient = ingredient.getId();
+		if (idIngredient == null) {
+			throw new ReferenceNullException();
+		}
+		List<Entree> all_entrees = getAll();
+		List<Entree> entrees = new ArrayList<Entree>();
+		for(int i = 0; i<all_entrees.size(); i++) {
+			Entree entree = all_entrees.get(i);
+			if (checkIngredientInComposantsEntree(ingredient,entree.getComposantsEntree())) {
+				entrees.add(entree);
+			}
+		}
+		return entrees;
+	}
 }

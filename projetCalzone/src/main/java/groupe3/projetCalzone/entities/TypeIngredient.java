@@ -1,5 +1,5 @@
 package groupe3.projetCalzone.entities;
 
 public enum TypeIngredient {
-	LEGUME,VIANDE,FROMAGE
+	LEGUME,VIANDE,FROMAGE,FECULENT,GLACE,AUTRE
 }

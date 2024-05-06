@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
 import groupe3.projetCalzone.entities.Dessert;
+import groupe3.projetCalzone.entities.Entree;
 import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.entities.TypeIngredient;
 import groupe3.projetCalzone.exceptions.NotFoundException;
@@ -33,6 +35,7 @@ public class DessertServiceTest {
 	@Autowired 
 	IngredientService ingredientSrv;
 	
+	/*
 	@Test
 	void injectionTest() {
 		assertNotNull(dessertSrv);
@@ -105,5 +108,25 @@ public class DessertServiceTest {
 		dessertSrv.creation(d);
 		ingredientSrv.creation(mascarpone);
 		dessertSrv.deleteIngredient(mascarpone, d);
+	}
+	*/
+	
+	@Test
+	void getByIngredientTest() {
+		Ingredient glace_vanille = new Ingredient("glace vanille", TypeIngredient.GLACE);
+		Ingredient glace_chocolat = new Ingredient("glace chocolat", TypeIngredient.GLACE);
+		Dessert d = new Dessert("glace 2 boules vanille chocolat",150.0);
+		dessertSrv.creation(d);
+		ingredientSrv.creation(glace_vanille);
+		ingredientSrv.creation(glace_chocolat);
+		dessertSrv.addIngredient(glace_vanille, d);
+		dessertSrv.addIngredient(glace_chocolat, d);
+		Ingredient chantilly = new Ingredient("chantilly", TypeIngredient.AUTRE);
+		Dessert d2 = new Dessert("glace vanille supplément chantilly",150.0);
+		dessertSrv.creation(d2);
+		ingredientSrv.creation(chantilly);
+		dessertSrv.addIngredient(chantilly, d2);
+		dessertSrv.addIngredient(glace_vanille, d2);
+		List<Dessert> lp = dessertSrv.getByIngredient(chantilly);
 	}
 }

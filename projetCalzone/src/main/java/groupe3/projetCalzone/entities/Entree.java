@@ -1,5 +1,6 @@
 package groupe3.projetCalzone.entities;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -35,6 +36,7 @@ public class Entree{
 	public Entree(String nom, Double prix) {
 		this.nom = nom;
 		this.prix = prix;
+		composantsEntree = new HashSet<ComposantEntree>();
 	}
 
 	public Entree(String nom, Double prix, Integer tva, String photo) {
@@ -109,6 +111,8 @@ public class Entree{
 		this.composantsEntree = composantsEntree;
 	}
 	
-	
+	public void addComposantEntree(ComposantEntree composantEntree) {
+		composantsEntree.add(composantEntree);
+	}
 	
 }

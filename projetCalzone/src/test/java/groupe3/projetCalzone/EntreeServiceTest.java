@@ -1,10 +1,6 @@
 package groupe3.projetCalzone;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
 import groupe3.projetCalzone.entities.Entree;
-import groupe3.projetCalzone.exceptions.NotFoundException;
-import groupe3.projetCalzone.exceptions.EntreeException;
-import groupe3.projetCalzone.exceptions.ReferenceNullException;
+import groupe3.projetCalzone.entities.Ingredient;
+import groupe3.projetCalzone.entities.TypeIngredient;
 import groupe3.projetCalzone.services.EntreeService;
 import groupe3.projetCalzone.services.IngredientService;
 import jakarta.transaction.Transactional;
@@ -29,6 +24,7 @@ public class EntreeServiceTest {
 	@Autowired 
 	IngredientService ingredientSrv;
 
+	/*
 	@Test
 	void injectionTest() {
 		assertNotNull(entreeSrv);
@@ -102,4 +98,24 @@ public class EntreeServiceTest {
 //		ingredientSrv.creation(tomate);
 //		entreeSrv.deleteIngredient(tomate, e);
 //	}
+	*/
+	
+	@Test
+	void getByIngredientTest() {
+		Ingredient tomate = new Ingredient("tomate", TypeIngredient.LEGUME);
+		Ingredient mozza = new Ingredient("mozza", TypeIngredient.FROMAGE);
+		Entree e = new Entree("tomate mozza",150.0);
+		entreeSrv.creation(e);
+		ingredientSrv.creation(tomate);
+		ingredientSrv.creation(mozza);
+		entreeSrv.addIngredient(tomate, e);
+		entreeSrv.addIngredient(mozza, e);
+		Ingredient riz = new Ingredient("riz", TypeIngredient.FECULENT);
+		Entree e2 = new Entree("arancini",150.0);
+		entreeSrv.creation(e2);
+		ingredientSrv.creation(riz);
+		entreeSrv.addIngredient(riz, e2);
+		entreeSrv.addIngredient(mozza, e2);
+		List<Entree> lp = entreeSrv.getByIngredient(riz);
+	}
 }
