@@ -1,8 +1,10 @@
 package groupe3.projetCalzone.services;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -138,6 +140,7 @@ public class PlatService {
         ComposantPlat composantPlat = new ComposantPlat();
         composantPlat.setId(new ComposantPlatId(plat, ingredient));
         compoPlatRepository.save(composantPlat);
+        plat.addComposantPlat(composantPlat);
 	}
 
 	//supprimer un ingrédient dans une plat			
@@ -154,5 +157,30 @@ public class PlatService {
 		return platRepository.findByIdFetchComposantsPlat(id).orElseThrow(() -> {
 			throw new NotFoundException("plat " + id + " inexistant");
 		});
+	}
+	
+	public boolean checkIngredientInComposantsPlat(Ingredient ingredient, Set<ComposantPlat> composantsPlat){
+		for (ComposantPlat composantPlat: composantsPlat) {
+			if (composantPlat.getId().getIngredient().equals(ingredient)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<Plat> getByIngredient(Ingredient ingredient){
+		Long idIngredient = ingredient.getId();
+		if (idIngredient == null) {
+			throw new ReferenceNullException();
+		}
+		List<Plat> all_plats = getAll();
+		List<Plat> plats = new ArrayList<Plat>();
+		for(int i = 0; i<all_plats.size(); i++) {
+			Plat plat = all_plats.get(i);
+			if (checkIngredientInComposantsPlat(ingredient,plat.getComposantsPlat())) {
+				plats.add(plat);
+			}
+		}
+		return plats;
 	}
 }

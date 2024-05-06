@@ -2,5 +2,5 @@
 -interfaces / enumerations ?
 -@MappedSuperclass dans la super classe abstraite, @AttributeOverride dans les attributs des sous-classes (cf corrigé 'eShopBack' sur ajc@classroom)
 -faire un findBy range de prix
--faire les findBy pour les Ingredients et autre
+-faire un findByIngredient
 -faire la Carte

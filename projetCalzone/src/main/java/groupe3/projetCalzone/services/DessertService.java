@@ -1,8 +1,10 @@
 package groupe3.projetCalzone.services;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import groupe3.projetCalzone.entities.ComposantDessert;
 import groupe3.projetCalzone.entities.ComposantDessertId;
+import groupe3.projetCalzone.entities.ComposantDessert;
 import groupe3.projetCalzone.entities.Dessert;
 import groupe3.projetCalzone.entities.Ingredient;
+import groupe3.projetCalzone.entities.Dessert;
 import groupe3.projetCalzone.exceptions.DessertException;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
@@ -120,7 +124,7 @@ public class DessertService {
 		return opt.get();
 	}
 	
-	//tous les plats
+	//tous les desserts
 	public List<Dessert> getAll() {
 		return dessertRepository.findAll();
 	}
@@ -146,5 +150,30 @@ public class DessertService {
 	public void deleteIngredient(Ingredient ingredient, Dessert dessert) {
         checkCompo(dessert, ingredient);
         compoDessertRepository.deleteById(new ComposantDessertId(dessert, ingredient));	
+	}
+	
+	public boolean checkIngredientInComposantsDessert(Ingredient ingredient, Set<ComposantDessert> composantsDessert){
+		for (ComposantDessert composantDessert: composantsDessert) {
+			if (composantDessert.getId().getIngredient().equals(ingredient)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<Dessert> getByIngredient(Ingredient ingredient){
+		Long idIngredient = ingredient.getId();
+		if (idIngredient == null) {
+			throw new ReferenceNullException();
+		}
+		List<Dessert> all_desserts = getAll();
+		List<Dessert> desserts = new ArrayList<Dessert>();
+		for(int i = 0; i<all_desserts.size(); i++) {
+			Dessert dessert = all_desserts.get(i);
+			if (checkIngredientInComposantsDessert(ingredient,dessert.getComposantsDessert())) {
+				desserts.add(dessert);
+			}
+		}
+		return desserts;
 	}
 }

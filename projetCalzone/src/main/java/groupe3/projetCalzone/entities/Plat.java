@@ -1,5 +1,6 @@
 package groupe3.projetCalzone.entities;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -36,6 +37,7 @@ public class Plat{
 	public Plat(String nom, Double prix) {
 		this.nom = nom;
 		this.prix = prix;
+		composantsPlat = new HashSet<ComposantPlat>();
 	}
 	
 	public Long getId() {
@@ -84,6 +86,10 @@ public class Plat{
 
 	public void setComposantsPlat(Set<ComposantPlat> composantsPlat) {
 		this.composantsPlat = composantsPlat;
+	}
+	
+	public void addComposantPlat(ComposantPlat composantPlat) {
+		composantsPlat.add(composantPlat);
 	}
 
 	@Override

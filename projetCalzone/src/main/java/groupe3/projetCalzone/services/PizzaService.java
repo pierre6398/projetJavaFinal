@@ -1,7 +1,9 @@
 package groupe3.projetCalzone.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -144,5 +146,30 @@ public class PizzaService {
 		return pizzaRepository.findByIdFetchComposantsPizza(id).orElseThrow(() -> {
 			throw new NotFoundException("pizza " + id + " inexistante");
 		});
+	}
+	
+	public boolean checkIngredientInComposantsPizza(Ingredient ingredient, Set<ComposantPizza> composantsPizza){
+		for (ComposantPizza composantPizza: composantsPizza) {
+			if (composantPizza.getId().getIngredient().equals(ingredient)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<Pizza> getByIngredient(Ingredient ingredient){
+		Long idIngredient = ingredient.getId();
+		if (idIngredient == null) {
+			throw new ReferenceNullException();
+		}
+		List<Pizza> all_pizzas = getAll();
+		List<Pizza> pizzas = new ArrayList<Pizza>();
+		for(int i = 0; i<all_pizzas.size(); i++) {
+			Pizza pizza = all_pizzas.get(i);
+			if (checkIngredientInComposantsPizza(ingredient,pizza.getComposantsPizza())) {
+				pizzas.add(pizza);
+			}
+		}
+		return pizzas;
 	}
 }
