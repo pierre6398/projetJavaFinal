@@ -1,12 +1,14 @@
 package groupe3.projetCalzone.entities;
 
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,8 +26,8 @@ public class Plat{
 	private Double tva = 10.0;
 	@Column(name = "plat_photo")
 	private String photo;
-	
-	//private List<Ingredient> ingredients;
+	@OneToMany (mappedBy= "id.plat")
+	private Set<ComposantPlat> composantsPlat;
 	
 	public Plat() {
 		
@@ -67,16 +69,22 @@ public class Plat{
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-
-	/*
-	public List<Ingredient> getIngredients() {
-		return ingredients;
+	
+	public Double getTva() {
+		return tva;
 	}
 
-	public void setIngredients(List<Ingredient> ingredients) {
-		this.ingredients = ingredients;
+	public void setTva(Double tva) {
+		this.tva = tva;
 	}
-	*/
+
+	public Set<ComposantPlat> getComposantsPlat() {
+		return composantsPlat;
+	}
+
+	public void setComposantsPlat(Set<ComposantPlat> composantsPlat) {
+		this.composantsPlat = composantsPlat;
+	}
 
 	@Override
 	public int hashCode() {

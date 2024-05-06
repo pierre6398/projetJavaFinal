@@ -95,7 +95,7 @@ public class DessertServiceTest {
 		Dessert d = new Dessert("tiramisu",1.0);
 		dessertSrv.creation(d);
 		ingredientSrv.creation(mascarpone);
-		dessertSrv.ajouterIngredient(mascarpone, d);
+		dessertSrv.addIngredient(mascarpone, d);
 	}
 	
 	@Test

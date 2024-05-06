@@ -112,7 +112,7 @@ public class EntreeService {
 	}
 
 	// ajouter un ingrédient dans une pizza
-	public void ajouterIngredient(Ingredient ingredient, Entree entree) {
+	public void addIngredient(Ingredient ingredient, Entree entree) {
 		checkCompo(entree, ingredient);
 		ComposantEntree composantEntree = new ComposantEntree();
 		composantEntree.setId(new ComposantEntreeId(entree, ingredient));

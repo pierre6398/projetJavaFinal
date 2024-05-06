@@ -125,24 +125,34 @@ public class PlatService {
 	}
 	
 	//check existance de plat et ingredient 
-			public void checkCompo(Plat plat, Ingredient ingredient){
-				if (plat == null || ingredient == null) { 
-					throw new ReferenceNullException();
-			} ingredientSrv.getById(ingredient.getId());
-				this.getById(plat.getId());
-			}
-		
-		//ajouter un ingrédient dans une plat
-			public void ajouterIngredient(Ingredient ingredient, Plat plat) {
-		        checkCompo(plat, ingredient);
-		        ComposantPlat composantPlat = new ComposantPlat();
-		        composantPlat.setId(new ComposantPlatId(plat, ingredient));
-		        compoPlatRepository.save(composantPlat);
-			}
+	public void checkCompo(Plat plat, Ingredient ingredient){
+		if (plat == null || ingredient == null) { 
+			throw new ReferenceNullException();
+	} ingredientSrv.getById(ingredient.getId());
+		this.getById(plat.getId());
+	}
+	
+	//ajouter un ingrédient dans une plat
+	public void addIngredient(Ingredient ingredient, Plat plat) {
+        checkCompo(plat, ingredient);
+        ComposantPlat composantPlat = new ComposantPlat();
+        composantPlat.setId(new ComposantPlatId(plat, ingredient));
+        compoPlatRepository.save(composantPlat);
+	}
 
-		//supprimer un ingrédient dans une plat			
-			public void deleteIngredient(Ingredient ingredient, Plat plat) {
-		        checkCompo(plat, ingredient);
-		        compoPlatRepository.deleteById(new ComposantPlatId(plat, ingredient));	
-			}
+	//supprimer un ingrédient dans une plat			
+	public void deleteIngredient(Ingredient ingredient, Plat plat) {
+        checkCompo(plat, ingredient);
+        compoPlatRepository.deleteById(new ComposantPlatId(plat, ingredient));	
+	}
+	
+	
+	public Plat getByIdWithComposantsPlat(Long id) {
+		if (id == null) {
+			throw new ReferenceNullException();
+		}
+		return platRepository.findByIdFetchComposantsPlat(id).orElseThrow(() -> {
+			throw new NotFoundException("plat " + id + " inexistant");
+		});
+	}
 }

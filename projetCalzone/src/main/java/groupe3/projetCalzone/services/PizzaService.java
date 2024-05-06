@@ -115,24 +115,34 @@ public class PizzaService {
 				}	
 				
 	//check existance de pizza et ingredient 
-		public void checkCompo(Pizza pizza, Ingredient ingredient){
-			if (pizza == null || ingredient == null) { 
-				throw new ReferenceNullException();
-		} ingredientSrv.getById(ingredient.getId());
-			this.getById(pizza.getId());
-		}
+	public void checkCompo(Pizza pizza, Ingredient ingredient){
+		if (pizza == null || ingredient == null) { 
+			throw new ReferenceNullException();
+	} ingredientSrv.getById(ingredient.getId());
+		this.getById(pizza.getId());
+	}
 	
 	//ajouter un ingrédient dans une pizza
-		public void ajouterIngredient(Ingredient ingredient, Pizza pizza) {
-	        checkCompo(pizza, ingredient);
-	        ComposantPizza composantPizza = new ComposantPizza();
-	        composantPizza.setId(new ComposantPizzaId(pizza, ingredient));
-	        compoPizzaRepository.save(composantPizza);
-		}
+	public void addIngredient(Ingredient ingredient, Pizza pizza) {
+        checkCompo(pizza, ingredient);
+        ComposantPizza composantPizza = new ComposantPizza();
+        composantPizza.setId(new ComposantPizzaId(pizza, ingredient));
+        compoPizzaRepository.save(composantPizza);
+	}
 
 	//supprimer un ingrédient dans une pizza			
-		public void deleteIngredient(Ingredient ingredient, Pizza pizza) {
-	        checkCompo(pizza, ingredient);
-	        compoPizzaRepository.deleteById(new ComposantPizzaId(pizza, ingredient));	
+	public void deleteIngredient(Ingredient ingredient, Pizza pizza) {
+        checkCompo(pizza, ingredient);
+        compoPizzaRepository.deleteById(new ComposantPizzaId(pizza, ingredient));	
+	}
+	
+		
+	public Pizza getByIdWithComposantsPizza(Long id) {
+		if (id == null) {
+			throw new ReferenceNullException();
 		}
+		return pizzaRepository.findByIdFetchComposantsPizza(id).orElseThrow(() -> {
+			throw new NotFoundException("pizza " + id + " inexistante");
+		});
+	}
 }

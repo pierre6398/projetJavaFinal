@@ -127,24 +127,24 @@ public class DessertService {
 	
 	
 	//check existance de dessert et ingredient 
-			public void checkCompo(Dessert dessert, Ingredient ingredient){
-				if (dessert == null || ingredient == null) { 
-					throw new ReferenceNullException();
-			} ingredientSrv.getById(ingredient.getId());
-				this.getById(dessert.getId());
-			}
-		
-		//ajouter un ingrédient dans une dessert
-			public void ajouterIngredient(Ingredient ingredient, Dessert dessert) {
-		        checkCompo(dessert, ingredient);
-		        ComposantDessert composantDessert = new ComposantDessert();
-		        composantDessert.setId(new ComposantDessertId(dessert, ingredient));
-		        compoDessertRepository.save(composantDessert);
-			}
+	public void checkCompo(Dessert dessert, Ingredient ingredient){
+		if (dessert == null || ingredient == null) { 
+			throw new ReferenceNullException();
+	} ingredientSrv.getById(ingredient.getId());
+		this.getById(dessert.getId());
+	}
+	
+	//ajouter un ingrédient dans une dessert
+	public void addIngredient(Ingredient ingredient, Dessert dessert) {
+        checkCompo(dessert, ingredient);
+        ComposantDessert composantDessert = new ComposantDessert();
+        composantDessert.setId(new ComposantDessertId(dessert, ingredient));
+        compoDessertRepository.save(composantDessert);
+	}
 
-		//supprimer un ingrédient dans une dessert			
-			public void deleteIngredient(Ingredient ingredient, Dessert dessert) {
-		        checkCompo(dessert, ingredient);
-		        compoDessertRepository.deleteById(new ComposantDessertId(dessert, ingredient));	
-			}
+	//supprimer un ingrédient dans une dessert			
+	public void deleteIngredient(Ingredient ingredient, Dessert dessert) {
+        checkCompo(dessert, ingredient);
+        compoDessertRepository.deleteById(new ComposantDessertId(dessert, ingredient));	
+	}
 }

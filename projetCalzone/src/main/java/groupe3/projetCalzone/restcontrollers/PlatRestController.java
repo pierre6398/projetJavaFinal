@@ -75,4 +75,9 @@ private Logger logger = LoggerFactory.getLogger(PlatRestController.class);
 		plat.setId(id);
 		return new PlatResponse(platSrv.update(plat));
 	}
+	
+	@GetMapping("/{id}/ingredients")
+	public PlatResponse getByIdWithComposantsPlat(@PathVariable Long id) {
+		return new PlatResponse(platSrv.getByIdWithComposantsPlat(id),true);
+	}
 }

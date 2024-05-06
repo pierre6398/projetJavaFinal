@@ -70,4 +70,8 @@ public class PizzaRestController {
 		return new PizzaResponse(pizzaSrv.update(pizza));
 	}
 	
+	@GetMapping("/{id}/ingredients")
+	public PizzaResponse getByIdWithComposantsPlat(@PathVariable Long id) {
+		return new PizzaResponse(pizzaSrv.getByIdWithComposantsPizza(id),true);
+	}
 }

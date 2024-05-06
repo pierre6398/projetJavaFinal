@@ -94,7 +94,7 @@ public class PizzaServiceTest {
 		Pizza p = new Pizza("calzone",150.0);
 		pizzaSrv.creation(p);
 		ingredientSrv.creation(tomate);
-		pizzaSrv.ajouterIngredient(tomate, p);
+		pizzaSrv.addIngredient(tomate, p);
 	}
 	
 	@Test

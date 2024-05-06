@@ -1,5 +1,8 @@
 package groupe3.projetCalzone.dto.responses;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.BeanUtils;
 
 import groupe3.projetCalzone.entities.Pizza;
@@ -15,6 +18,7 @@ public class PizzaResponse {
 	private BasePizza base;
 	private TaillePizza taille;
 	private String photo;
+	private List<IngredientResponse> ingredients;
 	
 	public PizzaResponse() {
 		
@@ -22,6 +26,15 @@ public class PizzaResponse {
 	
 	public PizzaResponse(Pizza pizza) {
 		BeanUtils.copyProperties(pizza, this);
+	}
+	
+	public PizzaResponse(Pizza pizza, boolean b) {
+		BeanUtils.copyProperties(pizza, this);
+		if(b) {
+			setIngredients(pizza.getComposantsPizza().stream()
+				.map(composantPizza -> new IngredientResponse(composantPizza.getId().getIngredient()))
+				.collect(Collectors.toList()));
+		}
 	}
 	
 
@@ -79,6 +92,14 @@ public class PizzaResponse {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	public List<IngredientResponse> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<IngredientResponse> ingredients) {
+		this.ingredients = ingredients;
 	}
 	
 	
