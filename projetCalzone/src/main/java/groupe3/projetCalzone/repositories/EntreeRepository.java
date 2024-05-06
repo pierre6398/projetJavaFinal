@@ -12,8 +12,9 @@ import groupe3.projetCalzone.entities.Entree;
 public interface EntreeRepository extends JpaRepository<Entree, Long>{
 	
 	List<Entree> findByNomContaining(String nom);
+	
+	List<Entree> findByPrixBetween(double prixMin, double prixMax);
 
 	@Query("select e from Entree e left join fetch e.composantsEntree where e.id=:id")
 	Optional<Entree> findByIdFetchComposantsEntree(@Param("id") Long id);
-
 }

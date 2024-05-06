@@ -11,4 +11,6 @@ public interface BoissonRepository extends JpaRepository<Boisson, Long> {
 	List<Boisson> findByNomContaining(String nom);
 	
 	List<Boisson> findByAlcool(Boolean alcool);
+	
+	List<Boisson> findByPrixBetween(double prixMin, double prixMax);
 }

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import groupe3.projetCalzone.dto.requests.EntreeRequest;
-import groupe3.projetCalzone.dto.responses.DessertResponse;
 import groupe3.projetCalzone.dto.responses.EntreeResponse;
 import groupe3.projetCalzone.entities.Entree;
 import groupe3.projetCalzone.services.EntreeService;

@@ -16,6 +16,8 @@ public interface PizzaRepository extends JpaRepository<Pizza, Long>{
 	
 	List<Pizza> findByBase(BasePizza base);
 	
+	List<Pizza> findByPrixBetween(double prixMin, double prixMax);
+	
 	@Query("select p from Pizza p left join fetch p.composantsPizza where p.id=:id")
 	Optional<Pizza> findByIdFetchComposantsPizza(@Param("id") Long id);
 }

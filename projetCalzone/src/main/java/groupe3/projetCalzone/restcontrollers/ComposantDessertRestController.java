@@ -1,8 +1,5 @@
 package groupe3.projetCalzone.restcontrollers;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,8 +15,6 @@ import groupe3.projetCalzone.services.IngredientService;
 @RestController
 @RequestMapping("/composant_dessert")
 public class ComposantDessertRestController {
-	
-private Logger logger = LoggerFactory.getLogger(ComposantDessertRestController.class);
 	
 	@Autowired
 	private DessertService dessertSrv;

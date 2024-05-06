@@ -11,8 +11,9 @@ import groupe3.projetCalzone.entities.Dessert;
 
 public interface DessertRepository  extends JpaRepository<Dessert, Long> {
 	List<Dessert> findByNomContainingIgnoreCase(String nom);
+	
+	List<Dessert> findByPrixBetween(double prixMin, double prixMax);
 
 	@Query("select d from Dessert d left join fetch d.composantsDessert where d.id=:id")
 	Optional<Dessert> findByIdFetchComposantsDessert(@Param("id") Long id);
-
 }
