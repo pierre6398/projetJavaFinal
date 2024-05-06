@@ -1,6 +1,5 @@
 package groupe3.projetCalzone.services;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -21,19 +20,18 @@ import groupe3.projetCalzone.repositories.DessertRepository;
 
 @Service
 public class DessertService {
-	
+
 	@Autowired
 	private DessertRepository dessertRepository;
-	
+
 	@Autowired
 	private ComposantDessertRepository compoDessertRepository;
-	
+
 	@Autowired
 	private IngredientService ingredientSrv;
-	
+
 	private Logger logger = LoggerFactory.getLogger(DessertService.class);
-	
-	
+
 	// test de l'existence d'un dessert
 	private boolean dessertNotNull(Dessert dessert) {
 		if (dessert == null) {
@@ -42,8 +40,7 @@ public class DessertService {
 		}
 		return true;
 	}
-	
-	
+
 	// création d'un dessert grâce au constructeur Dessert(nom, prix)
 	public Dessert creation(String nom, Double prix) {
 		logger.trace("creation dessert avec String, Double");
@@ -52,8 +49,7 @@ public class DessertService {
 		dessert.setPrix(prix);
 		return creation(dessert);
 	}
-	
-	
+
 	// création d'un dessert grâce à un dessert
 	public Dessert creation(Dessert dessert) {
 		logger.trace("creation dessert avec Dessert");
@@ -62,16 +58,15 @@ public class DessertService {
 			// probleme=>RunTimeException
 			throw new DessertException("nom dessert obligatoire");
 		}
-		if(dessert.getPrix() == null) {
+		if (dessert.getPrix() == null) {
 			logger.debug("prix vide");
 			throw new DessertException("prix dessert obligatoire");
 		}
 		logger.debug(dessert.getNom());
-		
+
 		return dessertRepository.save(dessert);
 	}
-	
-	
+
 	// supprime un dessert
 	public void delete(Dessert dessert) {
 		if (dessert == null) {
@@ -79,8 +74,7 @@ public class DessertService {
 		}
 		dessertRepository.deleteById(dessert.getId());
 	}
-	
-	
+
 	// modification d'un dessert
 	public Dessert update(Dessert dessert) {
 		logger.trace("modification de dessert");
@@ -89,26 +83,24 @@ public class DessertService {
 			// probleme=>RunTimeException
 			throw new DessertException("nom dessert obligatoire");
 		}
-		if(dessert.getPrix() == null) {
+		if (dessert.getPrix() == null) {
 			logger.debug("prix vide");
 			throw new DessertException("prix dessert obligatoire");
 		}
 		logger.debug(dessert.getNom());
-		
+
 		return dessertRepository.save(dessert);
 	}
-	
-	
+
 	// récupérer la liste des desserts qui contiennent un certain nom
-	public List<Dessert> getByNom(String nom){
-		if(nom==null || nom.isBlank()) {
+	public List<Dessert> getByNom(String nom) {
+		if (nom == null || nom.isBlank()) {
 			throw new DessertException("nom obligatoire");
 		}
 		return dessertRepository.findByNomContainingIgnoreCase(nom);
 	}
-	
-	
-	//dessert par id
+
+	// dessert par id
 	public Dessert getById(Long id) {
 		if (id == null) {
 			throw new ReferenceNullException();
@@ -119,32 +111,42 @@ public class DessertService {
 		}
 		return opt.get();
 	}
-	
-	//tous les plats
+
+	// tous les plats
 	public List<Dessert> getAll() {
 		return dessertRepository.findAll();
 	}
-	
-	
-	//check existance de dessert et ingredient 
-			public void checkCompo(Dessert dessert, Ingredient ingredient){
-				if (dessert == null || ingredient == null) { 
-					throw new ReferenceNullException();
-			} ingredientSrv.getById(ingredient.getId());
-				this.getById(dessert.getId());
-			}
-		
-		//ajouter un ingrédient dans une dessert
-			public void ajouterIngredient(Ingredient ingredient, Dessert dessert) {
-		        checkCompo(dessert, ingredient);
-		        ComposantDessert composantDessert = new ComposantDessert();
-		        composantDessert.setId(new ComposantDessertId(dessert, ingredient));
-		        compoDessertRepository.save(composantDessert);
-			}
 
-		//supprimer un ingrédient dans une dessert			
-			public void deleteIngredient(Ingredient ingredient, Dessert dessert) {
-		        checkCompo(dessert, ingredient);
-		        compoDessertRepository.deleteById(new ComposantDessertId(dessert, ingredient));	
-			}
+	// check existance de dessert et ingredient
+	public void checkCompo(Dessert dessert, Ingredient ingredient) {
+		if (dessert == null || ingredient == null) {
+			throw new ReferenceNullException();
+		}
+		ingredientSrv.getById(ingredient.getId());
+		this.getById(dessert.getId());
+	}
+
+	// ajouter un ingrédient dans une dessert
+	public void addIngredient(Ingredient ingredient, Dessert dessert) {
+		checkCompo(dessert, ingredient);
+		ComposantDessert composantDessert = new ComposantDessert();
+		composantDessert.setId(new ComposantDessertId(dessert, ingredient));
+		compoDessertRepository.save(composantDessert);
+	}
+
+	// supprimer un ingrédient dans un dessert
+	public void deleteIngredient(Ingredient ingredient, Dessert dessert) {
+		checkCompo(dessert, ingredient);
+		compoDessertRepository.deleteById(new ComposantDessertId(dessert, ingredient));
+	}
+
+	// chercher dessert avec cet ingrédient
+	public Dessert getByIdWithComposantsDessert(Long id) {
+		if (id == null) {
+			throw new ReferenceNullException();
+		}
+		return dessertRepository.findByIdFetchComposantsDessert(id).orElseThrow(() -> {
+			throw new NotFoundException("Dessert " + id + " inexistant");
+		});
+	}
 }

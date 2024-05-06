@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import groupe3.projetCalzone.dto.requests.EntreeRequest;
+import groupe3.projetCalzone.dto.responses.DessertResponse;
 import groupe3.projetCalzone.dto.responses.EntreeResponse;
 import groupe3.projetCalzone.entities.Entree;
 import groupe3.projetCalzone.services.EntreeService;
@@ -68,5 +69,11 @@ public class EntreeRestController {
 		entree.setId(id);
 		return new EntreeResponse(entreeSrv.update(entree));
 	}
+	
+	// affiche une entrée avec ses ingrédients
+		@GetMapping("/{id}/ingredients")
+		public EntreeResponse getByIdWithComposantsEntree(@PathVariable Long id) {
+			return new EntreeResponse(entreeSrv.getByIdWithComposantsEntree(id), true);
+		}
 	
 }

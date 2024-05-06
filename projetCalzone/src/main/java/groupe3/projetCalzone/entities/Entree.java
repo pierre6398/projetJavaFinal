@@ -1,12 +1,14 @@
 package groupe3.projetCalzone.entities;
 
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +26,9 @@ public class Entree{
 	private Integer tva;
 	@Column(name = "entree_photo")
 	private String photo;
+	
+	@OneToMany(mappedBy = "id.entree")
+	private Set<ComposantEntree> composantsEntree;
 	
 	public Entree() {
 	}
@@ -95,6 +100,14 @@ public class Entree{
 			return false;
 		Entree other = (Entree) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public Set<ComposantEntree> getComposantsEntree() {
+		return composantsEntree;
+	}
+
+	public void setComposantsEntree(Set<ComposantEntree> composantsEntree) {
+		this.composantsEntree = composantsEntree;
 	}
 	
 	

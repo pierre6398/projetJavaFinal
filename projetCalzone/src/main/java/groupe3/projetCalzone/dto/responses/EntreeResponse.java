@@ -1,5 +1,8 @@
 package groupe3.projetCalzone.dto.responses;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.BeanUtils;
 
 import groupe3.projetCalzone.entities.Entree;
@@ -12,8 +15,19 @@ public class EntreeResponse {
 	private Integer tva;
 	private String photo;
 	
+	private List<IngredientResponse> ingredients;
+	
 	public EntreeResponse() {
 		
+	}
+	
+	public EntreeResponse(Entree entree, boolean vieuxb) {
+		BeanUtils.copyProperties(entree, this);
+		if (vieuxb) {
+			ingredients = entree.getComposantsEntree().stream()
+					.map(composantEntree -> new IngredientResponse(composantEntree.getId().getIngredient()))
+					.collect(Collectors.toList());
+		}
 	}
 	
 	public EntreeResponse(Entree entree) {
@@ -59,6 +73,15 @@ public class EntreeResponse {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+
+	public List<IngredientResponse> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<IngredientResponse> ingredients) {
+		this.ingredients = ingredients;
+	}
+	
 	
 	
 }

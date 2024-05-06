@@ -76,4 +76,10 @@ private Logger logger = LoggerFactory.getLogger(DessertRestController.class);
 		return new DessertResponse(dessertSrv.update(dessert));
 	}
 	
+	// affiche un dessert avec ses ingrédients
+	@GetMapping("/{id}/ingredients")
+	public DessertResponse getByIdWithComposantsDessert(@PathVariable Long id) {
+		return new DessertResponse(dessertSrv.getByIdWithComposantsDessert(id), true);
+	}
+	
 }

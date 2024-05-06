@@ -19,28 +19,28 @@ import groupe3.projetCalzone.repositories.BoissonRepository;
 public class BoissonService {
 	@Autowired
 	private BoissonRepository boissonRepository;
-	
+
 	private Logger logger = LoggerFactory.getLogger(BoissonService.class);
-	
+
 	// creation d'une boisson
-		public Boisson creation(String nom, Double prix) {
-			Boisson boisson = new Boisson();
-			boisson.setNom(nom);
-			boisson.setPrix(prix);
-			return creation(boisson);
-		}
-		
+	public Boisson creation(String nom, Double prix) {
+		Boisson boisson = new Boisson();
+		boisson.setNom(nom);
+		boisson.setPrix(prix);
+		return creation(boisson);
+	}
+
 	// creation d'une boisson
-		public Boisson creation(Boisson boisson) {
-			if (boisson == null) {
-				throw new ReferenceNullException();
-			}
-			if (boisson.getNom() == null || boisson.getNom().isBlank()) {
-				throw new BoissonException("nom obligatoire");
-			}
-			return boissonRepository.save(boisson);
+	public Boisson creation(Boisson boisson) {
+		if (boisson == null) {
+			throw new ReferenceNullException();
 		}
-		
+		if (boisson.getNom() == null || boisson.getNom().isBlank()) {
+			throw new BoissonException("nom obligatoire");
+		}
+		return boissonRepository.save(boisson);
+	}
+
 	// test de l'existence d'un boisson
 	private boolean boissonNotNull(Boisson boisson) {
 		if (boisson == null) {
@@ -49,75 +49,78 @@ public class BoissonService {
 		}
 		return true;
 	}
-		
-	// liste de toutes les boissons
-		public List<Boisson> getAll() {
-			return boissonRepository.findAll();
-		}
 
-	//boisson par id
-		public Boisson getById(Long id) {
-			if (id == null) {
-				throw new ReferenceNullException();
-			}
-			Optional<Boisson> opt = boissonRepository.findById(id);
-			if (opt.isEmpty()) {
-				throw new NotFoundException("boisson " + id + " non trouvée");
-			}
-			return opt.get();
+	// liste de toutes les boissons
+	public List<Boisson> getAll() {
+		return boissonRepository.findAll();
+	}
+
+	// boisson par id
+	public Boisson getById(Long id) {
+		if (id == null) {
+			throw new ReferenceNullException();
 		}
-	//boisson par nom
-		public List<Boisson> getByNom(String nom) {
-			if (nom == null) {
-				throw new ReferenceNullException();
-			}
-			List<Boisson> list = boissonRepository.findByNomContaining(nom);
-			if (list.isEmpty()) {
-				throw new NotFoundException("boisson " + nom + " non trouvée");
-			}
-			return list;
+		Optional<Boisson> opt = boissonRepository.findById(id);
+		if (opt.isEmpty()) {
+			throw new NotFoundException("boisson " + id + " non trouvée");
 		}
-	//boisson alcool ou non
-		public List<Boisson> getByAlcool(Boolean alcool) {
-			if (alcool == null) {
-				throw new ReferenceNullException();
-			}
-			List<Boisson> list = boissonRepository.findByAlcool(alcool);
-			if (list.isEmpty()) {
-				throw new NotFoundException("boisson non trouvée");
-			}
-			return list;
-		}	
-	//suppr boisson
-		public void delete(Long id) {
-			if (id == null) {
-				throw new ReferenceNullException();
-			}
-			logger.trace("boisson supprimée (???)");
-			boissonRepository.deleteById(id);
+		return opt.get();
+	}
+
+	// boisson par nom
+	public List<Boisson> getByNom(String nom) {
+		if (nom == null) {
+			throw new ReferenceNullException();
 		}
-				
-	//modif boisson
-		public void update(Boisson boisson, String nvNom, Double nvPrix, Integer nvTva) {
-			boisson.setNom(nvNom);
-			boisson.setPrix(nvPrix);
-			boisson.setTva(nvTva);
-			boissonRepository.save(boisson);
+		List<Boisson> list = boissonRepository.findByNomContaining(nom);
+		if (list.isEmpty()) {
+			throw new NotFoundException("boisson " + nom + " non trouvée");
 		}
-		
-		public Boisson update(Boisson boisson) {
-			logger.trace("modification de boisson");
-			if (boissonNotNull(boisson) && boisson.getNom() == null || boisson.getNom().isBlank()) {
-				logger.debug("nom vide");
-				// probleme=>RunTimeException
-				throw new BoissonException("nom boisson obligatoire");
-			}
-			if(boisson.getPrix() == null) {
-				logger.debug("prix vide");
-				throw new DessertException("prix boisson obligatoire");
-			}
-			logger.debug(boisson.getNom());
-			
-			return boissonRepository.save(boisson);
+		return list;
+	}
+
+	// boisson alcool ou non
+	public List<Boisson> getByAlcool(Boolean alcool) {
+		if (alcool == null) {
+			throw new ReferenceNullException();
 		}
+		List<Boisson> list = boissonRepository.findByAlcool(alcool);
+		if (list.isEmpty()) {
+			throw new NotFoundException("boisson non trouvée");
+		}
+		return list;
+	}
+
+	// suppr boisson
+	public void delete(Long id) {
+		if (id == null) {
+			throw new ReferenceNullException();
+		}
+		logger.trace("boisson supprimée (???)");
+		boissonRepository.deleteById(id);
+	}
+
+	// modif boisson
+	public void update(Boisson boisson, String nvNom, Double nvPrix, Integer nvTva) {
+		boisson.setNom(nvNom);
+		boisson.setPrix(nvPrix);
+		boisson.setTva(nvTva);
+		boissonRepository.save(boisson);
+	}
+
+	public Boisson update(Boisson boisson) {
+		logger.trace("modification de boisson");
+		if (boissonNotNull(boisson) && boisson.getNom() == null || boisson.getNom().isBlank()) {
+			logger.debug("nom vide");
+			// probleme=>RunTimeException
+			throw new BoissonException("nom boisson obligatoire");
+		}
+		if (boisson.getPrix() == null) {
+			logger.debug("prix vide");
+			throw new DessertException("prix boisson obligatoire");
+		}
+		logger.debug(boisson.getNom());
+
+		return boissonRepository.save(boisson);
+	}
 }

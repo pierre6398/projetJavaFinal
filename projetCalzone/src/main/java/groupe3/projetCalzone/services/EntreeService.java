@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import groupe3.projetCalzone.entities.ComposantEntree;
 import groupe3.projetCalzone.entities.ComposantEntreeId;
+import groupe3.projetCalzone.entities.Dessert;
 import groupe3.projetCalzone.entities.Entree;
 import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.exceptions.EntreeException;
@@ -23,10 +24,10 @@ public class EntreeService {
 
 	@Autowired
 	private EntreeRepository entreeRepository;
-	
+
 	@Autowired
 	private ComposantEntreeRepository compoEntreeRepository;
-	
+
 	@Autowired
 	private IngredientService ingredientSrv;
 
@@ -112,7 +113,7 @@ public class EntreeService {
 	}
 
 	// ajouter un ingrédient dans une pizza
-	public void ajouterIngredient(Ingredient ingredient, Entree entree) {
+	public void addIngredient(Ingredient ingredient, Entree entree) {
 		checkCompo(entree, ingredient);
 		ComposantEntree composantEntree = new ComposantEntree();
 		composantEntree.setId(new ComposantEntreeId(entree, ingredient));
@@ -124,4 +125,14 @@ public class EntreeService {
 		checkCompo(entree, ingredient);
 		compoEntreeRepository.deleteById(new ComposantEntreeId(entree, ingredient));
 	}
+	
+	// chercher entrée avec cet ingrédient
+		public Entree getByIdWithComposantsEntree(Long id) {
+			if (id == null) {
+				throw new ReferenceNullException();
+			}
+			return entreeRepository.findByIdFetchComposantsEntree(id).orElseThrow(() -> {
+				throw new NotFoundException("Entrée " + id + " inexistante");
+			});
+		}
 }

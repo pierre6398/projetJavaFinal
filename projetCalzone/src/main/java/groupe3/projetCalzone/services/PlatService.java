@@ -1,6 +1,5 @@
 package groupe3.projetCalzone.services;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -21,19 +20,18 @@ import groupe3.projetCalzone.repositories.PlatRepository;
 
 @Service
 public class PlatService {
-	
+
 	@Autowired
 	private PlatRepository platRepository;
-	
+
 	@Autowired
 	private ComposantPlatRepository compoPlatRepository;
-	
+
 	@Autowired
 	private IngredientService ingredientSrv;
-	
+
 	private Logger logger = LoggerFactory.getLogger(PlatService.class);
-	
-	
+
 	// test de l'existence d'un plat
 	private boolean platNotNull(Plat plat) {
 		if (plat == null) {
@@ -42,8 +40,7 @@ public class PlatService {
 		}
 		return true;
 	}
-	
-	
+
 	// création d'un plat grâce au constructeur Plat(nom, prix)
 	public Plat creation(String nom, Double prix) {
 		logger.trace("creation plat avec String, Double");
@@ -52,8 +49,7 @@ public class PlatService {
 		plat.setPrix(prix);
 		return creation(plat);
 	}
-	
-	
+
 	// création d'un plat grâce à un plat
 	public Plat creation(Plat plat) {
 		logger.trace("creation plat avec Plat");
@@ -62,16 +58,15 @@ public class PlatService {
 			// probleme=>RunTimeException
 			throw new PlatException("nom plat obligatoire");
 		}
-		if(plat.getPrix() == null) {
+		if (plat.getPrix() == null) {
 			logger.debug("prix vide");
 			throw new PlatException("prix plat obligatoire");
 		}
 		logger.debug(plat.getNom());
-		
+
 		return platRepository.save(plat);
 	}
-	
-	
+
 	// supprime un plat
 	public void delete(Plat plat) {
 		if (plat == null) {
@@ -79,8 +74,7 @@ public class PlatService {
 		}
 		platRepository.deleteById(plat.getId());
 	}
-	
-	
+
 	// modification d'un plat
 	public Plat update(Plat plat) {
 		logger.trace("modification de plat");
@@ -89,25 +83,24 @@ public class PlatService {
 			// probleme=>RunTimeException
 			throw new PlatException("nom plat obligatoire");
 		}
-		if(plat.getPrix() == null) {
+		if (plat.getPrix() == null) {
 			logger.debug("prix vide");
 			throw new PlatException("prix plat obligatoire");
 		}
 		logger.debug(plat.getNom());
-		
+
 		return platRepository.save(plat);
 	}
-	
-	
+
 	// récupérer la liste des plats qui contiennent un certain nom
-	public List<Plat> getByNom(String nom){
-		if(nom==null || nom.isBlank()) {
+	public List<Plat> getByNom(String nom) {
+		if (nom == null || nom.isBlank()) {
 			throw new PlatException("nom obligatoire");
 		}
 		return platRepository.findByNomContainingIgnoreCase(nom);
 	}
-	
-	//plat par id
+
+	// plat par id
 	public Plat getById(Long id) {
 		if (id == null) {
 			throw new ReferenceNullException();
@@ -118,31 +111,32 @@ public class PlatService {
 		}
 		return opt.get();
 	}
-	
-	//tous les plats
+
+	// tous les plats
 	public List<Plat> getAll() {
 		return platRepository.findAll();
 	}
-	
-	//check existance de plat et ingredient 
-			public void checkCompo(Plat plat, Ingredient ingredient){
-				if (plat == null || ingredient == null) { 
-					throw new ReferenceNullException();
-			} ingredientSrv.getById(ingredient.getId());
-				this.getById(plat.getId());
-			}
-		
-		//ajouter un ingrédient dans une plat
-			public void ajouterIngredient(Ingredient ingredient, Plat plat) {
-		        checkCompo(plat, ingredient);
-		        ComposantPlat composantPlat = new ComposantPlat();
-		        composantPlat.setId(new ComposantPlatId(plat, ingredient));
-		        compoPlatRepository.save(composantPlat);
-			}
 
-		//supprimer un ingrédient dans une plat			
-			public void deleteIngredient(Ingredient ingredient, Plat plat) {
-		        checkCompo(plat, ingredient);
-		        compoPlatRepository.deleteById(new ComposantPlatId(plat, ingredient));	
-			}
+	// check existance de plat et ingredient
+	public void checkCompo(Plat plat, Ingredient ingredient) {
+		if (plat == null || ingredient == null) {
+			throw new ReferenceNullException();
+		}
+		ingredientSrv.getById(ingredient.getId());
+		this.getById(plat.getId());
+	}
+
+	// ajouter un ingrédient dans une plat
+	public void addIngredient(Ingredient ingredient, Plat plat) {
+		checkCompo(plat, ingredient);
+		ComposantPlat composantPlat = new ComposantPlat();
+		composantPlat.setId(new ComposantPlatId(plat, ingredient));
+		compoPlatRepository.save(composantPlat);
+	}
+
+	// supprimer un ingrédient dans une plat
+	public void deleteIngredient(Ingredient ingredient, Plat plat) {
+		checkCompo(plat, ingredient);
+		compoPlatRepository.deleteById(new ComposantPlatId(plat, ingredient));
+	}
 }
