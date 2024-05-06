@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import groupe3.projetCalzone.entities.ComposantEntree;
 import groupe3.projetCalzone.entities.ComposantEntreeId;
-import groupe3.projetCalzone.entities.Dessert;
 import groupe3.projetCalzone.entities.Entree;
 import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.exceptions.EntreeException;

@@ -138,4 +138,14 @@ public class PizzaService {
 		checkCompo(pizza, ingredient);
 		compoPizzaRepository.deleteById(new ComposantPizzaId(pizza, ingredient));
 	}
+	
+		
+	public Pizza getByIdWithComposantsPizza(Long id) {
+		if (id == null) {
+			throw new ReferenceNullException();
+		}
+		return pizzaRepository.findByIdFetchComposantsPizza(id).orElseThrow(() -> {
+			throw new NotFoundException("pizza " + id + " inexistante");
+		});
+	}
 }

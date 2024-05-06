@@ -37,7 +37,7 @@ public class Pizza{
 	@Column(name = "pizza_photo")
 	private String photo;
 	@OneToMany (mappedBy= "id.pizza")
-	private Set<ComposantPizza> composPizza;
+	private Set<ComposantPizza> composantsPizza;
 	
 	
 	public Pizza() {
@@ -48,14 +48,14 @@ public class Pizza{
 		this.prix = prix;
 	}
 	
-	public Pizza(String nom, Double prix, Integer tva, BasePizza base, TaillePizza taille, String photo,Set<ComposantPizza> composPizza) {
+	public Pizza(String nom, Double prix, Integer tva, BasePizza base, TaillePizza taille, String photo,Set<ComposantPizza> composantsPizza) {
 		this.nom = nom;
 		this.prix = prix;
 		this.tva = tva;
 		this.base = base;
 		this.taille = taille;
 		this.photo = photo;
-		this.composPizza = composPizza;
+		this.composantsPizza = composantsPizza;
 	}
 	public Long getId() {
 		return id;
@@ -101,12 +101,12 @@ public class Pizza{
 	}
 	
 	
-	public Set<ComposantPizza> getComposPizza() {
-		return composPizza;
+	public Set<ComposantPizza> getComposantsPizza() {
+		return composantsPizza;
 	}
 
-	public void setComposPizza(Set<ComposantPizza> composPizza) {
-		this.composPizza = composPizza;
+	public void setComposPizza(Set<ComposantPizza> composantsPizza) {
+		this.composantsPizza = composantsPizza;
 	}
 
 	@Override

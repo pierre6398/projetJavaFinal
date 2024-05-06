@@ -117,6 +117,7 @@ public class PlatService {
 		return platRepository.findAll();
 	}
 
+
 	// check existance de plat et ingredient
 	public void checkCompo(Plat plat, Ingredient ingredient) {
 		if (plat == null || ingredient == null) {
@@ -134,9 +135,18 @@ public class PlatService {
 		compoPlatRepository.save(composantPlat);
 	}
 
-	// supprimer un ingrédient dans une plat
+	// supprimer un ingrédient dans un plat
 	public void deleteIngredient(Ingredient ingredient, Plat plat) {
 		checkCompo(plat, ingredient);
 		compoPlatRepository.deleteById(new ComposantPlatId(plat, ingredient));
+	}
+	
+	public Plat getByIdWithComposantsPlat(Long id) {
+		if (id == null) {
+			throw new ReferenceNullException();
+		}
+		return platRepository.findByIdFetchComposantsPlat(id).orElseThrow(() -> {
+			throw new NotFoundException("plat " + id + " inexistant");
+		});
 	}
 }

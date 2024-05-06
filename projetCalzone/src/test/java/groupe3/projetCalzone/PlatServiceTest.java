@@ -94,7 +94,7 @@ public class PlatServiceTest {
 		Plat p = new Plat("pates aux tomates",150.0);
 		platSrv.creation(p);
 		ingredientSrv.creation(tomate);
-		platSrv.ajouterIngredient(tomate, p);
+		platSrv.addIngredient(tomate, p);
 	}
 	
 	@Test
