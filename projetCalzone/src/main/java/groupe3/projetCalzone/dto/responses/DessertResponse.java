@@ -1,6 +1,8 @@
 package groupe3.projetCalzone.dto.responses;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
@@ -14,8 +16,19 @@ public class DessertResponse {
 	private Double tva = 10.0;
 	private String photo;
 	
+	private List<IngredientResponse> ingredients;
+	
 	public DessertResponse() {
 		
+	}
+	
+	public DessertResponse(Dessert dessert, boolean vieuxb) {
+		BeanUtils.copyProperties(dessert, this);
+		if (vieuxb) {
+			ingredients = dessert.getComposantsDessert().stream()
+					.map(composantDessert -> new IngredientResponse(composantDessert.getId().getIngredient()))
+					.collect(Collectors.toList());
+		}
 	}
 	
 	public DessertResponse(Dessert dessert) {
@@ -60,6 +73,14 @@ public class DessertResponse {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	public List<IngredientResponse> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<IngredientResponse> ingredients) {
+		this.ingredients = ingredients;
 	}
 
 	@Override

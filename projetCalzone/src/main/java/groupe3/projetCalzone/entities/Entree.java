@@ -100,6 +100,14 @@ public class Entree{
 		Entree other = (Entree) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	public Set<ComposantEntree> getComposantsEntree() {
+		return composantsEntree;
+	}
+
+	public void setComposantsEntree(Set<ComposantEntree> composantsEntree) {
+		this.composantsEntree = composantsEntree;
+	}
 	
 	
 	

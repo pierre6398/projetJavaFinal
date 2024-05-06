@@ -23,10 +23,10 @@ public class EntreeService {
 
 	@Autowired
 	private EntreeRepository entreeRepository;
-	
+
 	@Autowired
 	private ComposantEntreeRepository compoEntreeRepository;
-	
+
 	@Autowired
 	private IngredientService ingredientSrv;
 
@@ -124,4 +124,14 @@ public class EntreeService {
 		checkCompo(entree, ingredient);
 		compoEntreeRepository.deleteById(new ComposantEntreeId(entree, ingredient));
 	}
+	
+	// chercher entrée avec cet ingrédient
+		public Entree getByIdWithComposantsEntree(Long id) {
+			if (id == null) {
+				throw new ReferenceNullException();
+			}
+			return entreeRepository.findByIdFetchComposantsEntree(id).orElseThrow(() -> {
+				throw new NotFoundException("Entrée " + id + " inexistante");
+			});
+		}
 }
