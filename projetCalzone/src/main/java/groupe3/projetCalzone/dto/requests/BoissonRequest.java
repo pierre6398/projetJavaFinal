@@ -2,13 +2,26 @@ package groupe3.projetCalzone.dto.requests;
 
 import java.util.Objects;
 
+import groupe3.projetCalzone.entities.Carte;
+
 public class BoissonRequest {
 	private Long id;
 	private String nom;
 	private Double prix;
 	private Double tva = 10.0;
 	private String photo;
+	private Carte carte;
 	
+	
+	
+	public Carte getCarte() {
+		return carte;
+	}
+
+	public void setCarte(Carte carte) {
+		this.carte = carte;
+	}
+
 	public BoissonRequest() {
 		
 	}

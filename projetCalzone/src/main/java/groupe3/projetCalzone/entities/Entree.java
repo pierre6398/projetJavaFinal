@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +26,9 @@ public class Entree{
 	private Integer tva;
 	@Column(name = "entree_photo")
 	private String photo;
+	@ManyToOne
+	@JoinColumn(name = "carte_id")
+	private Carte carte;
 	
 	public Entree() {
 	}
@@ -38,6 +43,15 @@ public class Entree{
 		this.prix = prix;
 		this.tva = tva;
 		this.photo = photo;
+	}
+	
+
+	public Carte getCarte() {
+		return carte;
+	}
+
+	public void setCarte(Carte carte) {
+		this.carte = carte;
 	}
 
 	public Long getId() {

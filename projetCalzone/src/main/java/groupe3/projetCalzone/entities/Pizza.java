@@ -12,6 +12,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -38,6 +40,9 @@ public class Pizza{
 	private String photo;
 	@OneToMany (mappedBy= "id.pizza")
 	private Set<ComposantPizza> composPizza;
+	@ManyToOne
+	@JoinColumn(name = "carte_id")
+	private Carte carte;
 	
 	
 	public Pizza() {
@@ -101,6 +106,15 @@ public class Pizza{
 	}
 	
 	
+	
+	public Carte getCarte() {
+		return carte;
+	}
+
+	public void setCarte(Carte carte) {
+		this.carte = carte;
+	}
+
 	public Set<ComposantPizza> getComposPizza() {
 		return composPizza;
 	}

@@ -1,5 +1,6 @@
 package groupe3.projetCalzone.dto.requests;
 
+import groupe3.projetCalzone.entities.Carte;
 import groupe3.projetCalzone.enums.BasePizza;
 import groupe3.projetCalzone.enums.TaillePizza;
 
@@ -12,6 +13,17 @@ public class PizzaRequest {
 	private BasePizza base;
 	private TaillePizza taille;
 	private String photo;
+	private Carte carte;
+	
+	
+	
+	public Carte getCarte() {
+		return carte;
+	}
+
+	public void setCarte(Carte carte) {
+		this.carte = carte;
+	}
 	
 	public Long getId() {
 		return id;

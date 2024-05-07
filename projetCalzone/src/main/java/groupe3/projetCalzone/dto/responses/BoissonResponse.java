@@ -4,14 +4,21 @@ import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import groupe3.projetCalzone.entities.Boisson;
 
 
 public class BoissonResponse {
+	@JsonView(JsonViews.Basic.class)
 	private Long id;
+	@JsonView(JsonViews.Basic.class)
 	private String nom;
+	@JsonView(JsonViews.Basic.class)
 	private Double prix;
+	@JsonView(JsonViews.Basic.class)
 	private Double tva = 10.0;
+	@JsonView(JsonViews.Basic.class)
 	private String photo;
 	
 	public BoissonResponse() {
