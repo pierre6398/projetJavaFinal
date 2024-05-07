@@ -7,7 +7,7 @@ import org.springframework.beans.BeanUtils;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import groupe3.projetCalzone.entities.Ingredient;
-import groupe3.projetCalzone.entities.TypeIngredient;
+import groupe3.projetCalzone.enums.TypeIngredient;
 
 public class IngredientResponse {
 	

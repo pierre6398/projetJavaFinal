@@ -9,7 +9,7 @@ import org.springframework.test.annotation.Rollback;
 
 import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.entities.Pizza;
-import groupe3.projetCalzone.entities.TypeIngredient;
+import groupe3.projetCalzone.enums.TypeIngredient;
 import groupe3.projetCalzone.services.IngredientService;
 import groupe3.projetCalzone.services.PizzaService;
 import jakarta.transaction.Transactional;

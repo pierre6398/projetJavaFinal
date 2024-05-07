@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import groupe3.projetCalzone.entities.Ingredient;
-import groupe3.projetCalzone.entities.TypeIngredient;
+import groupe3.projetCalzone.enums.TypeIngredient;
 import groupe3.projetCalzone.exceptions.IngredientException;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;

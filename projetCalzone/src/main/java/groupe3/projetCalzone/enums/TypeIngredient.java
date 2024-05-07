@@ -1,4 +1,4 @@
-package groupe3.projetCalzone.entities;
+package groupe3.projetCalzone.enums;
 
 public enum TypeIngredient {
 	LEGUME("Légume"),VIANDE("Viande"),FROMAGE("Fromage"),FECULENT("Féculent"),MATIERE_GRASSE("Matière grasse"),
@@ -10,4 +10,8 @@ public enum TypeIngredient {
     private TypeIngredient(String toString) {
          this.toString = toString;
     }
+
+	public String getToString() {
+		return toString;
+	}
 }

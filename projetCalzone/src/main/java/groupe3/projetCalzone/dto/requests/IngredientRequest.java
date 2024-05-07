@@ -1,6 +1,6 @@
 package groupe3.projetCalzone.dto.requests;
 
-import groupe3.projetCalzone.entities.TypeIngredient;
+import groupe3.projetCalzone.enums.TypeIngredient;
 
 public class IngredientRequest {
 	private Long id;

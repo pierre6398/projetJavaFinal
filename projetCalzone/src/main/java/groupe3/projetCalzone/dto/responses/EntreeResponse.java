@@ -88,7 +88,4 @@ public class EntreeResponse {
 	public void setIngredients(List<IngredientResponse> ingredients) {
 		this.ingredients = ingredients;
 	}
-	
-	
-	
 }

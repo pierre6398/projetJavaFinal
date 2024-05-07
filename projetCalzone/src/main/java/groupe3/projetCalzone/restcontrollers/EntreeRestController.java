@@ -26,6 +26,8 @@ import groupe3.projetCalzone.dto.requests.EntreeRequest;
 import groupe3.projetCalzone.dto.responses.EntreeResponse;
 import groupe3.projetCalzone.dto.responses.JsonViews;
 import groupe3.projetCalzone.entities.Entree;
+import groupe3.projetCalzone.entities.Ingredient;
+import groupe3.projetCalzone.repositories.IngredientRepository;
 import groupe3.projetCalzone.services.EntreeService;
 import jakarta.validation.Valid;
 
@@ -37,6 +39,9 @@ public class EntreeRestController {
 	
 	@Autowired
 	public EntreeService entreeSrv;
+	
+	@Autowired
+	public IngredientRepository ingredientRepository;
 	
 	@GetMapping("")
 	@JsonView(JsonViews.Entree.class)
@@ -76,9 +81,15 @@ public class EntreeRestController {
 	}
 	
 	// affiche une entrée avec ses ingrédients
-		@GetMapping("/{id}/ingredients")
-		public EntreeResponse getByIdWithComposantsEntree(@PathVariable Long id) {
-			return new EntreeResponse(entreeSrv.getByIdWithComposantsEntree(id), true);
-		}
+	@GetMapping("/{id}/ingredients")
+	public EntreeResponse getByIdWithComposantsEntree(@PathVariable Long id) {
+		return new EntreeResponse(entreeSrv.getByIdWithComposantsEntree(id), true);
+	}
+	
+	@GetMapping("/entrees/{nom_ingredient}")
+	public List<EntreeResponse> getEntreesWithIngredient(@PathVariable String nom_ingredient) {
+		Ingredient ingredient = ingredientRepository.findByNom(nom_ingredient).get();
+		return entreeSrv.convertListEntrees(entreeSrv.getByIngredient(ingredient));
+	}
 	
 }

@@ -15,7 +15,7 @@ import org.springframework.test.annotation.Rollback;
 import groupe3.projetCalzone.entities.Dessert;
 import groupe3.projetCalzone.entities.Entree;
 import groupe3.projetCalzone.entities.Ingredient;
-import groupe3.projetCalzone.entities.TypeIngredient;
+import groupe3.projetCalzone.enums.TypeIngredient;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.DessertException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;

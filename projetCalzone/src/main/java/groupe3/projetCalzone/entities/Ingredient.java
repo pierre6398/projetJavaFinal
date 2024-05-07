@@ -2,6 +2,7 @@ package groupe3.projetCalzone.entities;
 
 import java.util.Objects;
 
+import groupe3.projetCalzone.enums.TypeIngredient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

@@ -1,6 +1,7 @@
 -faire un findByIngredient dans RestController
 -faire la Carte
 -faire les JsonViews pour l'affichage des Responses
+-faire les listes par ingrédients autres que Entree
 
 -application properties --> changer "create" en "validate" lorsque la table est créée
 (-@MappedSuperclass dans la super classe abstraite, @AttributeOverride dans les attributs des sous-classes (cf corrigé 'eShopBack' sur ajc@classroom))
