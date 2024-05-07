@@ -10,15 +10,15 @@ import groupe3.projetCalzone.entities.Boisson;
 
 
 public class BoissonResponse {
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Boisson.class)
 	private Long id;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Boisson.class})
 	private String nom;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Boisson.class})
 	private Double prix;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Boisson.class)
 	private Double tva = 10.0;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Boisson.class})
 	private String photo;
 	
 	public BoissonResponse() {

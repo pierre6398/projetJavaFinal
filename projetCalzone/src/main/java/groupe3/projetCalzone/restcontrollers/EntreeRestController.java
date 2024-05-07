@@ -39,19 +39,19 @@ public class EntreeRestController {
 	public EntreeService entreeSrv;
 	
 	@GetMapping("")
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Entree.class)
 	public List<EntreeResponse> getAll() {
         return entreeSrv.getAll().stream().map(p -> new EntreeResponse(p)).collect(Collectors.toList());
 	}
 	
 	@GetMapping("/{id}")
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Entree.class)
 	public EntreeResponse getById(@PathVariable Long id) {
 		return new EntreeResponse(entreeSrv.getById(id));
 	}
 	
 	@PostMapping("")
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Entree.class)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public EntreeResponse create(@Valid @RequestBody EntreeRequest entreeRequest, BindingResult br) {
 		if (br.hasErrors()) {

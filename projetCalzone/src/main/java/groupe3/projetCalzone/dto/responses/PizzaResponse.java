@@ -13,20 +13,21 @@ import groupe3.projetCalzone.enums.TaillePizza;
 
 public class PizzaResponse {
 
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Pizza.class)
 	private Long id;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Pizza.class})
 	private String nom;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Pizza.class})
 	private Double prix;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Pizza.class)
 	private Integer tva;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Pizza.class})
 	private BasePizza base;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Pizza.class)
 	private TaillePizza taille;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Pizza.class})
 	private String photo;
+	@JsonView({JsonViews.Basic.class,JsonViews.Pizza.class})
 	private List<IngredientResponse> ingredients;
 	
 	public PizzaResponse() {

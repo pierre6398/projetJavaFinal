@@ -8,20 +8,22 @@ import org.springframework.beans.BeanUtils;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import groupe3.projetCalzone.dto.responses.JsonViews.Basic;
 import groupe3.projetCalzone.entities.Plat;
 
 
 public class PlatResponse {
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Plat.class)
 	private Long id;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Plat.class})
 	private String nom;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Plat.class})
 	private Double prix;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Plat.class)
 	private Double tva = 10.0;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Plat.class})
 	private String photo;
+	@JsonView({JsonViews.Basic.class,JsonViews.Plat.class})
 	private List<IngredientResponse> ingredients;
 
 	public PlatResponse() {

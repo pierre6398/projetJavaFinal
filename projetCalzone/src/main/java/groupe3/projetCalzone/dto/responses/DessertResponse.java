@@ -12,17 +12,17 @@ import groupe3.projetCalzone.entities.Dessert;
 
 
 public class DessertResponse {
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Dessert.class)
 	private Long id;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Dessert.class})
 	private String nom;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Dessert.class})
 	private Double prix;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Dessert.class)
 	private Double tva = 10.0;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Dessert.class})
 	private String photo;
-	
+	@JsonView({JsonViews.Basic.class,JsonViews.Dessert.class})
 	private List<IngredientResponse> ingredients;
 	
 	public DessertResponse() {

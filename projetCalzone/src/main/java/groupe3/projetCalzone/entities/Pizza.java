@@ -41,7 +41,6 @@ public class Pizza{
 	private String photo;
 	@OneToMany (mappedBy= "id.pizza")
 	private Set<ComposantPizza> composantsPizza;
-	private Set<ComposantPizza> composPizza;
 	@ManyToOne
 	@JoinColumn(name = "carte_id")
 	private Carte carte;
@@ -121,9 +120,6 @@ public class Pizza{
 		this.carte = carte;
 	}
 
-	public Set<ComposantPizza> getComposPizza() {
-		return composPizza;
-	}
 
 	public void setComposPizza(Set<ComposantPizza> composantsPizza) {
 		this.composantsPizza = composantsPizza;

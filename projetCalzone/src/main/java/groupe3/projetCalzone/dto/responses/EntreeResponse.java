@@ -11,16 +11,17 @@ import groupe3.projetCalzone.entities.Entree;
 
 public class EntreeResponse {
 	
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Entree.class)
 	private Long id;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Entree.class})
 	private String nom;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Entree.class})
 	private Double prix;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView(JsonViews.Entree.class)
 	private Integer tva;
-	@JsonView(JsonViews.Basic.class)
+	@JsonView({JsonViews.Basic.class,JsonViews.Entree.class})
 	private String photo;
+	@JsonView({JsonViews.Basic.class,JsonViews.Entree.class})
 	private List<IngredientResponse> ingredients;
 	
 	public EntreeResponse() {

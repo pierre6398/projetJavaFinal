@@ -54,6 +54,7 @@ public class CarteRestController {
 	private BoissonService boissonSrv;
 
 	@GetMapping("")
+	@JsonView(JsonViews.Basic.class)
 	public List<CarteResponse> getAll() {
 		return carteSrv.getAll().stream().map(c -> new CarteResponse(c, true)).collect(Collectors.toList());
 	}
