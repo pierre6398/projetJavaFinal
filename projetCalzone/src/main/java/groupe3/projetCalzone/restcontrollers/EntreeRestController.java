@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import groupe3.projetCalzone.dto.requests.EntreeRequest;
 import groupe3.projetCalzone.dto.responses.EntreeResponse;
+import groupe3.projetCalzone.dto.responses.JsonViews;
 import groupe3.projetCalzone.entities.Entree;
 import groupe3.projetCalzone.services.EntreeService;
 import jakarta.validation.Valid;
@@ -36,16 +39,19 @@ public class EntreeRestController {
 	public EntreeService entreeSrv;
 	
 	@GetMapping("")
+	@JsonView(JsonViews.Basic.class)
 	public List<EntreeResponse> getAll() {
         return entreeSrv.getAll().stream().map(p -> new EntreeResponse(p)).collect(Collectors.toList());
 	}
 	
 	@GetMapping("/{id}")
+	@JsonView(JsonViews.Basic.class)
 	public EntreeResponse getById(@PathVariable Long id) {
 		return new EntreeResponse(entreeSrv.getById(id));
 	}
 	
 	@PostMapping("")
+	@JsonView(JsonViews.Basic.class)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public EntreeResponse create(@Valid @RequestBody EntreeRequest entreeRequest, BindingResult br) {
 		if (br.hasErrors()) {

@@ -1,5 +1,7 @@
 package groupe3.projetCalzone.dto.requests;
 
+import groupe3.projetCalzone.entities.Carte;
+
 public class EntreeRequest {
 	
 	private Long id;
@@ -7,9 +9,16 @@ public class EntreeRequest {
 	private Double prix;
 	private Integer tva;
 	private String photo;
+	private Carte carte;
 	
 	
-	
+
+	public Carte getCarte() {
+		return carte;
+	}
+	public void setCarte(Carte carte) {
+		this.carte = carte;
+	}
 	public Long getId() {
 		return id;
 	}

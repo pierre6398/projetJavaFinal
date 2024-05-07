@@ -10,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +29,9 @@ public class Dessert{
 	private Double tva = 10.0;
 	@Column(name = "dessert_photo")
 	private String photo;
+	@ManyToOne
+	@JoinColumn(name = "carte_id")
+	private Carte carte;
 	
 	@OneToMany(mappedBy = "id.dessert")
 	private Set<ComposantDessert> composantsDessert;
@@ -98,6 +103,14 @@ public class Dessert{
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+
+	public Carte getCarte() {
+		return carte;
+	}
+
+	public void setCarte(Carte carte) {
+		this.carte = carte;
 	}
 
 	@Override

@@ -5,16 +5,22 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import groupe3.projetCalzone.entities.Entree;
 
 public class EntreeResponse {
 	
+	@JsonView(JsonViews.Basic.class)
 	private Long id;
+	@JsonView(JsonViews.Basic.class)
 	private String nom;
+	@JsonView(JsonViews.Basic.class)
 	private Double prix;
+	@JsonView(JsonViews.Basic.class)
 	private Integer tva;
+	@JsonView(JsonViews.Basic.class)
 	private String photo;
-	
 	private List<IngredientResponse> ingredients;
 	
 	public EntreeResponse() {
