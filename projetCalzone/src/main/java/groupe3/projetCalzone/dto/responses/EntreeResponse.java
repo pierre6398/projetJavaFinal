@@ -18,7 +18,7 @@ public class EntreeResponse {
 	@JsonView({JsonViews.Basic.class,JsonViews.Entree.class})
 	private Double prix;
 	@JsonView(JsonViews.Entree.class)
-	private Integer tva;
+	private Double tva;
 	@JsonView({JsonViews.Basic.class,JsonViews.Entree.class})
 	private String photo;
 	@JsonView({JsonViews.Basic.class,JsonViews.Entree.class})
@@ -65,11 +65,11 @@ public class EntreeResponse {
 		this.prix = prix;
 	}
 
-	public Integer getTva() {
+	public Double getTva() {
 		return tva;
 	}
 
-	public void setTva(Integer tva) {
+	public void setTva(Double tva) {
 		this.tva = tva;
 	}
 

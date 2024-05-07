@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import groupe3.projetCalzone.entities.Boisson;
 
 import groupe3.projetCalzone.exceptions.BoissonException;
-import groupe3.projetCalzone.exceptions.DessertException;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
 import groupe3.projetCalzone.repositories.BoissonRepository;
@@ -24,10 +23,8 @@ public class BoissonService {
 	private Logger logger = LoggerFactory.getLogger(BoissonService.class);
 
 	// creation d'une boisson
-	public Boisson creation(String nom, Double prix) {
-		Boisson boisson = new Boisson();
-		boisson.setNom(nom);
-		boisson.setPrix(prix);
+	public Boisson creation(String nom, Double prix,Boolean alcool) {
+		Boisson boisson = new Boisson(nom, prix, alcool);
 		return creation(boisson);
 	}
 
@@ -102,7 +99,7 @@ public class BoissonService {
 	}
 
 	// modif boisson
-	public void update(Boisson boisson, String nvNom, Double nvPrix, Integer nvTva) {
+	public void update(Boisson boisson, String nvNom, Double nvPrix, Double nvTva) {
 		boisson.setNom(nvNom);
 		boisson.setPrix(nvPrix);
 		boisson.setTva(nvTva);
@@ -118,7 +115,7 @@ public class BoissonService {
 		}
 		if (boisson.getPrix() == null) {
 			logger.debug("prix vide");
-			throw new DessertException("prix boisson obligatoire");
+			throw new BoissonException("prix boisson obligatoire");
 		}
 		logger.debug(boisson.getNom());
 

@@ -7,7 +7,7 @@ public class EntreeRequest {
 	private Long id;
 	private String nom;
 	private Double prix;
-	private Integer tva;
+	private Double tva =10.0;
 	private String photo;
 	private Carte carte;
 	
@@ -37,10 +37,10 @@ public class EntreeRequest {
 	public void setPrix(Double prix) {
 		this.prix = prix;
 	}
-	public Integer getTva() {
+	public Double getTva() {
 		return tva;
 	}
-	public void setTva(Integer tva) {
+	public void setTva(Double tva) {
 		this.tva = tva;
 	}
 	public String getPhoto() {

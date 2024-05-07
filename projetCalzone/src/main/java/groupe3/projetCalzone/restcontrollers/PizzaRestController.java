@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import groupe3.projetCalzone.dto.requests.PizzaRequest;
+import groupe3.projetCalzone.dto.responses.JsonViews;
 import groupe3.projetCalzone.dto.responses.PizzaResponse;
 import groupe3.projetCalzone.entities.Pizza;
 import groupe3.projetCalzone.services.PizzaService;
@@ -37,13 +40,15 @@ public class PizzaRestController {
 	public PizzaService pizzaSrv;
 	
 	@GetMapping("")
+	@JsonView(JsonViews.Pizza.class)
 	public List<PizzaResponse> getAll() {
-        return pizzaSrv.getAll().stream().map(p -> new PizzaResponse(p)).collect(Collectors.toList());
+        return pizzaSrv.getAll().stream().map(p -> new PizzaResponse(p,true)).collect(Collectors.toList());
 	}
 	
 	@GetMapping("/{id}")
+	@JsonView(JsonViews.Pizza.class)
 	public PizzaResponse getById(@PathVariable Long id) {
-		return new PizzaResponse(pizzaSrv.getById(id));
+		return new PizzaResponse(pizzaSrv.getById(id),true);
 	}
 	
 	@PostMapping("")

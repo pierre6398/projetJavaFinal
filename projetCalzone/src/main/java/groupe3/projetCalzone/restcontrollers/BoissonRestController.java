@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import groupe3.projetCalzone.dto.requests.BoissonRequest;
 import groupe3.projetCalzone.dto.responses.BoissonResponse;
+import groupe3.projetCalzone.dto.responses.JsonViews;
 import groupe3.projetCalzone.entities.Boisson;
 import groupe3.projetCalzone.services.BoissonService;
 import jakarta.validation.Valid;
@@ -37,18 +40,21 @@ private Logger logger = LoggerFactory.getLogger(BoissonRestController.class);
 	
 	// affiche tous les boissons
 	@GetMapping("")
+	@JsonView(JsonViews.Boisson.class)
 	public List<BoissonResponse> getAll() {
 		return boissonSrv.getAll().stream().map(p -> new BoissonResponse(p)).collect(Collectors.toList());
 	}
 	
 	// affiche un boisson
 	@GetMapping("/{id}")
+	@JsonView(JsonViews.Boisson.class)
 	public BoissonResponse getById(@PathVariable Long id) {
 		return new BoissonResponse(boissonSrv.getById(id));
 	}
 	
 	// crée un boisson
 	@PostMapping("")
+	@JsonView(JsonViews.Boisson.class)
 	@ResponseStatus(code=HttpStatus.CREATED)
 	public BoissonResponse create(@Valid @RequestBody BoissonRequest boissonRequest, BindingResult br) {
 		if(br.hasErrors()) {
@@ -58,6 +64,9 @@ private Logger logger = LoggerFactory.getLogger(BoissonRestController.class);
 		logger.info("validation ok");
 		Boisson  boisson = new Boisson();
 		BeanUtils.copyProperties(boissonRequest, boisson);
+		if (boisson.getAlcool()) {
+			boisson.setTva(20.0);
+		}
 		boisson=boissonSrv.creation(boisson);
 		return new BoissonResponse(boisson);
 	}
@@ -71,8 +80,12 @@ private Logger logger = LoggerFactory.getLogger(BoissonRestController.class);
 	
 	// modifier un boisson existant
 	@PutMapping("/{id}")
+	@JsonView(JsonViews.Boisson.class)
 	public BoissonResponse update(@PathVariable Long id, @RequestBody Boisson boisson) {
 		boisson.setId(id);
+		if (boisson.getAlcool()) {
+			boisson.setTva(20.0);
+		}
 		return new BoissonResponse(boissonSrv.update(boisson));
 	}
 }

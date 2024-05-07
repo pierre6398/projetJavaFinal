@@ -35,7 +35,7 @@ public class CarteServiceTest {
 		Entree e = new Entree("tomate mozza",10.0);
 		Plat p = new Plat("pates boloss", 15.0);
 		Pizza piz = new Pizza("cacalzone",20.0);
-		Boisson b = new Boisson("rome ambré", 25.0);
+		Boisson b = new Boisson("rome ambré", 25.0,true);
 		Dessert d = new Dessert("filou tubz", 100000.0);
 		
 		Carte carte = new Carte("la carte");

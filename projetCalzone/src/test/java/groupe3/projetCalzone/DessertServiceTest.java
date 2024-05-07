@@ -113,8 +113,8 @@ public class DessertServiceTest {
 	
 	@Test
 	void getByIngredientTest() {
-		Ingredient glace_vanille = new Ingredient("glace vanille", TypeIngredient.GLACE);
-		Ingredient glace_chocolat = new Ingredient("glace chocolat", TypeIngredient.GLACE);
+		Ingredient glace_vanille = new Ingredient("glace vanille", TypeIngredient.PRODUIT_LAITIER);
+		Ingredient glace_chocolat = new Ingredient("glace chocolat", TypeIngredient.PRODUIT_LAITIER);
 		Dessert d = new Dessert("glace 2 boules vanille chocolat",150.0);
 		dessertSrv.creation(d);
 		ingredientSrv.creation(glace_vanille);

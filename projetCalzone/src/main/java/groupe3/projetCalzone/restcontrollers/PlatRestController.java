@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import groupe3.projetCalzone.dto.requests.PlatRequest;
+import groupe3.projetCalzone.dto.responses.JsonViews;
 import groupe3.projetCalzone.dto.responses.PlatResponse;
 import groupe3.projetCalzone.entities.Plat;
 import groupe3.projetCalzone.services.PlatService;
@@ -37,14 +40,16 @@ private Logger logger = LoggerFactory.getLogger(PlatRestController.class);
 	
 	// affiche tous les plats
 	@GetMapping("")
+	@JsonView(JsonViews.Plat.class)
 	public List<PlatResponse> getAll() {
-		return platSrv.getAll().stream().map(p -> new PlatResponse(p)).collect(Collectors.toList());
+		return platSrv.getAll().stream().map(p -> new PlatResponse(p,true)).collect(Collectors.toList());
 	}
 	
 	// affiche un plat
 	@GetMapping("/{id}")
+	@JsonView(JsonViews.Plat.class)
 	public PlatResponse getById(@PathVariable Long id) {
-		return new PlatResponse(platSrv.getById(id));
+		return new PlatResponse(platSrv.getById(id),true);
 	}
 	
 	// crée un plat

@@ -8,12 +8,21 @@ public class BoissonRequest {
 	private Long id;
 	private String nom;
 	private Double prix;
-	private Double tva = 10.0;
+	private Double tva;
 	private String photo;
 	private Carte carte;
+	private Boolean alcool;
 	
 	
 	
+	public Boolean getAlcool() {
+		return alcool;
+	}
+
+	public void setAlcool(Boolean alcool) {
+		this.alcool = alcool;
+	}
+
 	public Carte getCarte() {
 		return carte;
 	}

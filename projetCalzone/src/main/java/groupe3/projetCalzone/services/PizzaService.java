@@ -105,7 +105,7 @@ public class PizzaService {
 	}
 
 	// modif pizza
-	public void update(Pizza pizza, String nvNom, Double nvPrix, Integer nvTva, BasePizza nvBase, String nvPhoto) {
+	public void update(Pizza pizza, String nvNom, Double nvPrix, Double nvTva, BasePizza nvBase, String nvPhoto) {
 		pizza.setNom(nvNom);
 		pizza.setPrix(nvPrix);
 		pizza.setTva(nvTva);

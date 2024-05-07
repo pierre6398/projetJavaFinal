@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import groupe3.projetCalzone.dto.requests.DessertRequest;
 import groupe3.projetCalzone.dto.responses.DessertResponse;
+import groupe3.projetCalzone.dto.responses.JsonViews;
 import groupe3.projetCalzone.entities.Dessert;
 import groupe3.projetCalzone.services.DessertService;
 import jakarta.validation.Valid;
@@ -37,14 +40,16 @@ private Logger logger = LoggerFactory.getLogger(DessertRestController.class);
 	
 	// affiche tous les desserts
 	@GetMapping("")
+	@JsonView(JsonViews.Dessert.class)
 	public List<DessertResponse> getAll() {
-		return dessertSrv.getAll().stream().map(p -> new DessertResponse(p)).collect(Collectors.toList());
+		return dessertSrv.getAll().stream().map(p -> new DessertResponse(p,true)).collect(Collectors.toList());
 	}
 	
 	// affiche un dessert
 	@GetMapping("/{id}")
+	@JsonView(JsonViews.Dessert.class)
 	public DessertResponse getById(@PathVariable Long id) {
-		return new DessertResponse(dessertSrv.getById(id));
+		return new DessertResponse(dessertSrv.getById(id),true);
 	}
 	
 	// crée un dessert

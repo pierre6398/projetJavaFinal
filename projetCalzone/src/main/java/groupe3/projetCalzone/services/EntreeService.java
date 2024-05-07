@@ -92,7 +92,7 @@ public class EntreeService {
 	}
 
 	// modif entree
-	public void update(Entree entree, String nvNom, Double nvPrix, Integer nvTva, String nvPhoto) {
+	public void update(Entree entree, String nvNom, Double nvPrix, Double nvTva, String nvPhoto) {
 		entree.setNom(nvNom);
 		entree.setPrix(nvPrix);
 		entree.setTva(nvTva);

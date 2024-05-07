@@ -33,7 +33,7 @@ public class BoissonServiceTest {
 	
 	@Test
 	void insertTest() {
-		Boisson b = new Boisson("coca", 2d);
+		Boisson b = new Boisson("coca", 2d,false);
 		boissonSrv.creation(b);
 		assertNotNull(b.getId());
 		Boisson boissonEnBase = boissonSrv.getById(b.getId());
@@ -65,7 +65,7 @@ public class BoissonServiceTest {
 	@Test
 	void deleteSimpleTest() {
 		// faire une insertion
-		Boisson b = boissonSrv.creation("cocktail maison", 4d);
+		Boisson b = boissonSrv.creation("cocktail maison", 4d,true);
 		// delete du code generer
 		Long id = b.getId();
 		boissonSrv.delete(id);
@@ -75,7 +75,7 @@ public class BoissonServiceTest {
 	
 	@Test
 	void updateSimpleTest() {
-		Boisson b = new Boisson("ice tea", 2d);
+		Boisson b = new Boisson("ice tea", 2d,false);
 		boissonSrv.creation(b);
 
 		b.setPrix(3d);

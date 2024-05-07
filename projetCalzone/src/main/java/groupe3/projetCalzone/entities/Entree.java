@@ -26,7 +26,7 @@ public class Entree{
 	@Column(name = "entree_prix")
 	private Double prix;
 	@Column(name = "entree_tva")
-	private Integer tva;
+	private Double tva = 10.0;
 	@Column(name = "entree_photo")
 	private String photo;
 	@OneToMany (mappedBy= "id.entree")
@@ -44,7 +44,7 @@ public class Entree{
 		composantsEntree = new HashSet<ComposantEntree>();
 	}
 
-	public Entree(String nom, Double prix, Integer tva, String photo) {
+	public Entree(String nom, Double prix, Double tva, String photo) {
 		this.nom = nom;
 		this.prix = prix;
 		this.tva = tva;
@@ -84,11 +84,11 @@ public class Entree{
 		this.prix = prix;
 	}
 
-	public Integer getTva() {
+	public Double getTva() {
 		return tva;
 	}
 
-	public void setTva(Integer tva) {
+	public void setTva(Double tva) {
 		this.tva = tva;
 	}
 

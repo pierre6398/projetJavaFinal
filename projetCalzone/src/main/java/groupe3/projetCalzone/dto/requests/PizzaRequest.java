@@ -9,7 +9,7 @@ public class PizzaRequest {
 	private Long id;
 	private String nom;
 	private Double prix;
-	private Integer tva;
+	private Double tva =10.0;
 	private BasePizza base;
 	private TaillePizza taille;
 	private String photo;
@@ -43,10 +43,10 @@ public class PizzaRequest {
 	public void setPrix(Double prix) {
 		this.prix = prix;
 	}
-	public Integer getTva() {
+	public Double getTva() {
 		return tva;
 	}
-	public void setTva(Integer tva) {
+	public void setTva(Double tva) {
 		this.tva = tva;
 	}
 	public BasePizza getBase() {

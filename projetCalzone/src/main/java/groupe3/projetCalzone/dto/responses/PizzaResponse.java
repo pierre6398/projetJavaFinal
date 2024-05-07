@@ -20,7 +20,7 @@ public class PizzaResponse {
 	@JsonView({JsonViews.Basic.class,JsonViews.Pizza.class})
 	private Double prix;
 	@JsonView(JsonViews.Pizza.class)
-	private Integer tva;
+	private Double tva;
 	@JsonView({JsonViews.Basic.class,JsonViews.Pizza.class})
 	private BasePizza base;
 	@JsonView(JsonViews.Pizza.class)
@@ -72,11 +72,11 @@ public class PizzaResponse {
 		this.prix = prix;
 	}
 
-	public Integer getTva() {
+	public Double getTva() {
 		return tva;
 	}
 
-	public void setTva(Integer tva) {
+	public void setTva(Double tva) {
 		this.tva = tva;
 	}
 

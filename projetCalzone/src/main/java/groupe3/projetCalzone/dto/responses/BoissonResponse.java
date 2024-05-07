@@ -17,9 +17,11 @@ public class BoissonResponse {
 	@JsonView({JsonViews.Basic.class,JsonViews.Boisson.class})
 	private Double prix;
 	@JsonView(JsonViews.Boisson.class)
-	private Double tva = 10.0;
+	private Double tva;
 	@JsonView({JsonViews.Basic.class,JsonViews.Boisson.class})
 	private String photo;
+	@JsonView({JsonViews.Basic.class,JsonViews.Boisson.class})
+	private Boolean alcool;
 	
 	public BoissonResponse() {
 		
@@ -31,6 +33,14 @@ public class BoissonResponse {
 
 	public Long getId() {
 		return id;
+	}
+	
+	public Boolean getAlcool() {
+		return alcool;
+	}
+
+	public void setAlcool(Boolean alcool) {
+		this.alcool = alcool;
 	}
 
 	public void setId(Long id) {

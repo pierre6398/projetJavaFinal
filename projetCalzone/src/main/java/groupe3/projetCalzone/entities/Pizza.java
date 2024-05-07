@@ -30,7 +30,7 @@ public class Pizza{
 	@Column(name = "pizza_prix")
 	private Double prix;
 	@Column(name = "pizza_tva")
-	private Integer tva;
+	private Double tva = 10.0;
 	@Column(name = "pizza_base")
 	@Enumerated(EnumType.STRING)
 	private BasePizza base;
@@ -55,7 +55,7 @@ public class Pizza{
 		composantsPizza = new HashSet<ComposantPizza>();
 	}
 	
-	public Pizza(String nom, Double prix, Integer tva, BasePizza base, TaillePizza taille, String photo,Set<ComposantPizza> composantsPizza) {
+	public Pizza(String nom, Double prix, Double tva, BasePizza base, TaillePizza taille, String photo,Set<ComposantPizza> composantsPizza) {
 		this.nom = nom;
 		this.prix = prix;
 		this.tva = tva;
@@ -82,10 +82,10 @@ public class Pizza{
 	public void setPrix(Double prix) {
 		this.prix = prix;
 	}
-	public Integer getTva() {
+	public Double getTva() {
 		return tva;
 	}
-	public void setTva(Integer tva) {
+	public void setTva(Double tva) {
 		this.tva = tva;
 	}
 	public BasePizza getBase() {

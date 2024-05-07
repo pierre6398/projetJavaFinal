@@ -41,13 +41,13 @@ public class EntreeRestController {
 	@GetMapping("")
 	@JsonView(JsonViews.Entree.class)
 	public List<EntreeResponse> getAll() {
-        return entreeSrv.getAll().stream().map(p -> new EntreeResponse(p)).collect(Collectors.toList());
+        return entreeSrv.getAll().stream().map(p -> new EntreeResponse(p,true)).collect(Collectors.toList());
 	}
 	
 	@GetMapping("/{id}")
 	@JsonView(JsonViews.Entree.class)
 	public EntreeResponse getById(@PathVariable Long id) {
-		return new EntreeResponse(entreeSrv.getById(id));
+		return new EntreeResponse(entreeSrv.getById(id),true);
 	}
 	
 	@PostMapping("")

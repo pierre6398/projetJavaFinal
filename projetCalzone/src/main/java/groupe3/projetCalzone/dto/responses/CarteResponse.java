@@ -37,21 +37,19 @@ public class CarteResponse {
 	public CarteResponse(Carte carte, boolean b) {
 		BeanUtils.copyProperties(carte, this);
 		if (b) {
-			entrees = carte.getEntrees().stream().map(entree -> new EntreeResponse(entree))
+			entrees = carte.getEntrees().stream().map(entree -> new EntreeResponse(entree,true))
 					.collect(Collectors.toList());
-			plats = carte.getPlats().stream().map(plat -> new PlatResponse(plat))
+			plats = carte.getPlats().stream().map(plat -> new PlatResponse(plat,true))
 					.collect(Collectors.toList());
-			pizzas = carte.getPizzas().stream().map(pizza -> new PizzaResponse(pizza))
+			pizzas = carte.getPizzas().stream().map(pizza -> new PizzaResponse(pizza,true))
 					.collect(Collectors.toList());
 			boissons = carte.getBoissons().stream().map(boisson -> new BoissonResponse(boisson))
 					.collect(Collectors.toList());
-			desserts = carte.getDesserts().stream().map(dessert -> new DessertResponse(dessert))
+			desserts = carte.getDesserts().stream().map(dessert -> new DessertResponse(dessert,true))
 					.collect(Collectors.toList());
 		}
 	}
 	
-
-
 	public Long getId() {
 		return id;
 	}

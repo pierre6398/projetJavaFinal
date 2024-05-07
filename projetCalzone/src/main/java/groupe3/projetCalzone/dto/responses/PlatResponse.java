@@ -8,7 +8,6 @@ import org.springframework.beans.BeanUtils;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import groupe3.projetCalzone.dto.responses.JsonViews.Basic;
 import groupe3.projetCalzone.entities.Plat;
 
 
