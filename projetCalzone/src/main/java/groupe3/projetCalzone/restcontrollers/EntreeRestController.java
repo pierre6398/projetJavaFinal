@@ -86,6 +86,7 @@ public class EntreeRestController {
 		return new EntreeResponse(entreeSrv.getByIdWithComposantsEntree(id), true);
 	}
 	
+	// affiche toutes les entrées possédant un certain ingrédient
 	@GetMapping("/entrees/{nom_ingredient}")
 	public List<EntreeResponse> getEntreesWithIngredient(@PathVariable String nom_ingredient) {
 		Ingredient ingredient = ingredientRepository.findByNom(nom_ingredient).get();

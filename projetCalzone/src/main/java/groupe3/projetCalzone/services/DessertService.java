@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import groupe3.projetCalzone.dto.responses.DessertResponse;
 import groupe3.projetCalzone.entities.ComposantDessert;
 import groupe3.projetCalzone.entities.ComposantDessertId;
 import groupe3.projetCalzone.entities.Dessert;
@@ -176,5 +177,13 @@ public class DessertService {
 			}
 		}
 		return desserts;
+	}
+	
+	public List<DessertResponse> convertListDesserts(List<Dessert> desserts){
+		List<DessertResponse> dessertsResponses = new ArrayList<DessertResponse>();
+		for (int i=0; i<desserts.size(); i++) {
+			dessertsResponses.add(new DessertResponse(desserts.get(i),true));
+		}
+		return dessertsResponses;
 	}
 }

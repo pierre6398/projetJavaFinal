@@ -26,6 +26,8 @@ import groupe3.projetCalzone.dto.requests.DessertRequest;
 import groupe3.projetCalzone.dto.responses.DessertResponse;
 import groupe3.projetCalzone.dto.responses.JsonViews;
 import groupe3.projetCalzone.entities.Dessert;
+import groupe3.projetCalzone.entities.Ingredient;
+import groupe3.projetCalzone.repositories.IngredientRepository;
 import groupe3.projetCalzone.services.DessertService;
 import jakarta.validation.Valid;
 
@@ -37,6 +39,9 @@ private Logger logger = LoggerFactory.getLogger(DessertRestController.class);
 	
 	@Autowired
 	private DessertService dessertSrv;
+	
+	@Autowired
+	private IngredientRepository ingredientRepository;
 	
 	// affiche tous les desserts
 	@GetMapping("")
@@ -87,4 +92,10 @@ private Logger logger = LoggerFactory.getLogger(DessertRestController.class);
 		return new DessertResponse(dessertSrv.getByIdWithComposantsDessert(id), true);
 	}
 	
+	// affiche tous les desserts possédant un certain ingrédient
+	@GetMapping("/desserts/{nom_ingredient}")
+	public List<DessertResponse> getDessertsWithIngredient(@PathVariable String nom_ingredient) {
+		Ingredient ingredient = ingredientRepository.findByNom(nom_ingredient).get();
+		return dessertSrv.convertListDesserts(dessertSrv.getByIngredient(ingredient));
+	}
 }

@@ -23,9 +23,11 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import groupe3.projetCalzone.dto.requests.PlatRequest;
-import groupe3.projetCalzone.dto.responses.JsonViews;
 import groupe3.projetCalzone.dto.responses.PlatResponse;
+import groupe3.projetCalzone.dto.responses.JsonViews;
+import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.entities.Plat;
+import groupe3.projetCalzone.repositories.IngredientRepository;
 import groupe3.projetCalzone.services.PlatService;
 import jakarta.validation.Valid;
 
@@ -37,6 +39,9 @@ private Logger logger = LoggerFactory.getLogger(PlatRestController.class);
 	
 	@Autowired
 	private PlatService platSrv;
+	
+	@Autowired
+	private IngredientRepository ingredientRepository;
 	
 	// affiche tous les plats
 	@GetMapping("")
@@ -84,5 +89,12 @@ private Logger logger = LoggerFactory.getLogger(PlatRestController.class);
 	@GetMapping("/{id}/ingredients")
 	public PlatResponse getByIdWithComposantsPlat(@PathVariable Long id) {
 		return new PlatResponse(platSrv.getByIdWithComposantsPlat(id),true);
+	}
+	
+	// affiche tous les plats possédant un certain ingrédient
+	@GetMapping("/plats/{nom_ingredient}")
+	public List<PlatResponse> getPlatsWithIngredient(@PathVariable String nom_ingredient) {
+		Ingredient ingredient = ingredientRepository.findByNom(nom_ingredient).get();
+		return platSrv.convertListPlats(platSrv.getByIngredient(ingredient));
 	}
 }

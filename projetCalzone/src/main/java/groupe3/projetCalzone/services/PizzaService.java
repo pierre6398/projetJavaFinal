@@ -10,10 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import groupe3.projetCalzone.dto.responses.PizzaResponse;
 import groupe3.projetCalzone.entities.ComposantPizza;
 import groupe3.projetCalzone.entities.ComposantPizzaId;
-import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.entities.Pizza;
+import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.enums.BasePizza;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.PizzaException;
@@ -175,5 +176,13 @@ public class PizzaService {
 			}
 		}
 		return pizzas;
+	}
+	
+	public List<PizzaResponse> convertListPizzas(List<Pizza> pizzas){
+		List<PizzaResponse> pizzasResponses = new ArrayList<PizzaResponse>();
+		for (int i=0; i<pizzas.size(); i++) {
+			pizzasResponses.add(new PizzaResponse(pizzas.get(i),true));
+		}
+		return pizzasResponses;
 	}
 }

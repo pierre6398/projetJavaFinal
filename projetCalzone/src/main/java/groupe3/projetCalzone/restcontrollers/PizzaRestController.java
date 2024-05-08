@@ -23,9 +23,11 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import groupe3.projetCalzone.dto.requests.PizzaRequest;
-import groupe3.projetCalzone.dto.responses.JsonViews;
 import groupe3.projetCalzone.dto.responses.PizzaResponse;
+import groupe3.projetCalzone.dto.responses.JsonViews;
+import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.entities.Pizza;
+import groupe3.projetCalzone.repositories.IngredientRepository;
 import groupe3.projetCalzone.services.PizzaService;
 import jakarta.validation.Valid;
 
@@ -38,6 +40,9 @@ public class PizzaRestController {
 	
 	@Autowired
 	public PizzaService pizzaSrv;
+	
+	@Autowired
+	public IngredientRepository ingredientRepository;
 	
 	@GetMapping("")
 	@JsonView(JsonViews.Pizza.class)
@@ -78,5 +83,12 @@ public class PizzaRestController {
 	@GetMapping("/{id}/ingredients")
 	public PizzaResponse getByIdWithComposantsPlat(@PathVariable Long id) {
 		return new PizzaResponse(pizzaSrv.getByIdWithComposantsPizza(id),true);
+	}
+	
+	// affiche toutes les pizzas possédant un certain ingrédient
+	@GetMapping("/pizzas/{nom_ingredient}")
+	public List<PizzaResponse> getPizzasWithIngredient(@PathVariable String nom_ingredient) {
+		Ingredient ingredient = ingredientRepository.findByNom(nom_ingredient).get();
+		return pizzaSrv.convertListPizzas(pizzaSrv.getByIngredient(ingredient));
 	}
 }
