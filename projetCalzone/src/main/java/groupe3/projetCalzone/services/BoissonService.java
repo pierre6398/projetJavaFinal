@@ -36,6 +36,14 @@ public class BoissonService {
 		if (boisson.getNom() == null || boisson.getNom().isBlank()) {
 			throw new BoissonException("nom obligatoire");
 		}
+		if (boisson.getPrix() == null) {
+			logger.debug("prix vide");
+			throw new BoissonException("prix boisson obligatoire");
+		}
+		if (boisson.getPrix() <= 0) {
+			logger.debug("prix négatif");
+			throw new BoissonException("prix boisson obligatoirement positif");
+		}
 		return boissonRepository.save(boisson);
 	}
 
@@ -117,7 +125,10 @@ public class BoissonService {
 			logger.debug("prix vide");
 			throw new BoissonException("prix boisson obligatoire");
 		}
-		logger.debug(boisson.getNom());
+		if (boisson.getPrix() <= 0) {
+			logger.debug("prix négatif");
+			throw new BoissonException("prix boisson obligatoirement positif");
+		}
 
 		return boissonRepository.save(boisson);
 	}

@@ -15,6 +15,7 @@ import groupe3.projetCalzone.entities.ComposantEntree;
 import groupe3.projetCalzone.entities.ComposantEntreeId;
 import groupe3.projetCalzone.entities.Entree;
 import groupe3.projetCalzone.entities.Ingredient;
+import groupe3.projetCalzone.exceptions.BoissonException;
 import groupe3.projetCalzone.exceptions.EntreeException;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
@@ -50,6 +51,14 @@ public class EntreeService {
 		}
 		if (entree.getNom() == null || entree.getNom().isBlank()) {
 			throw new EntreeException("nom obligatoire");
+		}
+		if (entree.getPrix() == null) {
+			logger.debug("prix vide");
+			throw new BoissonException("prix entree obligatoire");
+		}
+		if (entree.getPrix() <= 0) {
+			logger.debug("prix négatif");
+			throw new BoissonException("prix entree obligatoirement positif");
 		}
 		return entreeRepository.save(entree);
 	}

@@ -15,6 +15,7 @@ import groupe3.projetCalzone.entities.ComposantDessert;
 import groupe3.projetCalzone.entities.ComposantDessertId;
 import groupe3.projetCalzone.entities.Dessert;
 import groupe3.projetCalzone.entities.Ingredient;
+import groupe3.projetCalzone.exceptions.BoissonException;
 import groupe3.projetCalzone.exceptions.DessertException;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
@@ -65,6 +66,10 @@ public class DessertService {
 			logger.debug("prix vide");
 			throw new DessertException("prix dessert obligatoire");
 		}
+		if (dessert.getPrix() <= 0) {
+			logger.debug("prix négatif");
+			throw new BoissonException("prix dessert obligatoirement positif");
+		}
 		logger.debug(dessert.getNom());
 
 		return dessertRepository.save(dessert);
@@ -89,6 +94,10 @@ public class DessertService {
 		if (dessert.getPrix() == null) {
 			logger.debug("prix vide");
 			throw new DessertException("prix dessert obligatoire");
+		}
+		if (dessert.getPrix() <= 0) {
+			logger.debug("prix négatif");
+			throw new BoissonException("prix dessert obligatoirement positif");
 		}
 		logger.debug(dessert.getNom());
 

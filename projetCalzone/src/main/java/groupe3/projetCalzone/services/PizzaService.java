@@ -16,6 +16,7 @@ import groupe3.projetCalzone.entities.ComposantPizzaId;
 import groupe3.projetCalzone.entities.Pizza;
 import groupe3.projetCalzone.entities.Ingredient;
 import groupe3.projetCalzone.enums.BasePizza;
+import groupe3.projetCalzone.exceptions.BoissonException;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.PizzaException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
@@ -51,6 +52,14 @@ public class PizzaService {
 		}
 		if (pizza.getNom() == null || pizza.getNom().isBlank()) {
 			throw new PizzaException("nom obligatoire");
+		}
+		if (pizza.getPrix() == null) {
+			logger.debug("prix vide");
+			throw new BoissonException("prix pizza obligatoire");
+		}
+		if (pizza.getPrix() <= 0) {
+			logger.debug("prix négatif");
+			throw new BoissonException("prix pizza obligatoirement positif");
 		}
 		return pizzaRepository.save(pizza);
 	}

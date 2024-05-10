@@ -15,6 +15,7 @@ import groupe3.projetCalzone.entities.ComposantPlat;
 import groupe3.projetCalzone.entities.ComposantPlatId;
 import groupe3.projetCalzone.entities.Plat;
 import groupe3.projetCalzone.entities.Ingredient;
+import groupe3.projetCalzone.exceptions.BoissonException;
 import groupe3.projetCalzone.exceptions.NotFoundException;
 import groupe3.projetCalzone.exceptions.PlatException;
 import groupe3.projetCalzone.exceptions.ReferenceNullException;
@@ -89,6 +90,10 @@ public class PlatService {
 		if (plat.getPrix() == null) {
 			logger.debug("prix vide");
 			throw new PlatException("prix plat obligatoire");
+		}
+		if (plat.getPrix() <= 0) {
+			logger.debug("prix négatif");
+			throw new BoissonException("prix plat obligatoirement positif");
 		}
 		logger.debug(plat.getNom());
 
